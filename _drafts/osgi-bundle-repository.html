@@ -1,0 +1,38 @@
+---
+layout: post
+title: OSGi Bundle Repository
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories:
+- System
+tags: []
+meta: {}
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>OBR is the bundle on felix</p>
+<p>The goal of the Apache Felix OSGi Bundle Repository (OBR) is two-fold:<br />
+1.To simplify deploying and using available bundles with Felix.<br />
+2.To encourage independent bundle development so that communities of interest can grow.</p>
+<p>OBR achieves the first goal by providing a service that can automatically install a bundle, with its deployment dependencies, from a bundle repository. This makes it easier for people to experiment with existing bundles.</p>
+<p>The second goal is achieved by raising the visibility of the available bundles and providing access to both the executable bundle and its source code. Hopefully, by making OBR and the bundles themselves more visible, community members will be encouraged to provide or improve service implementations.</p>
+<p>Note: OBR provides access to the Felix' default bundle repository, but you can also use it to deploy your own bundles by creating a bundle repository meta-data file for your local bundles; see the obr list-url, obr add-url, and obr remove-url commands for more details.</p>
+<p>OBR defines the following entities:<br />
+•Repository Admin - a service to access a federation of repositories.<br />
+•Repository - provides access to a set of resources.<br />
+•Resource - a description of an artifact to be installed on a device.<br />
+•Capability - a named set of properties.<br />
+•Requirement - an assertion on a capability.<br />
+•Resolver - an object to resolve resource dependencies and to deploy them.<br />
+•Repository file - XML file containing resource meta-data.</p>
+<p>obr:list  all aviabile in all sources<br />
+obr:deploy xxx<br />
+start xxx</p>

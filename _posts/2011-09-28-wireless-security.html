@@ -1,0 +1,211 @@
+---
+layout: post
+title: Wireless security
+date: 2011-09-28 13:35:31.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _edit_last: '1'
+  _wpcom_is_markdown: '1'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">无线安全主要分为几部分：<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">1. WEP与</span><span style="font-family:Times New Roman;">WPA</span><span style="font-family:宋体;">加密和破解<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">2. 突破</span><span style="font-family:Times New Roman;">MAC</span><span style="font-family:宋体;">限制<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">3. 破解关闭</span><span style="font-family:Times New Roman;">SSID</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">4. 破解无</span><span style="font-family:Times New Roman;">DHCP</span><span style="font-family:宋体;">分配<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">5. 抓包分析<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">6. DOS攻击<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">7. WPA高速破解<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">8. 伪造</span><span style="font-family:Times New Roman;">AP</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">9. 无客户端破解<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">10. 蓝牙攻击<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">11. WAR-DRING及地图绘制<br />
+</span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">1. WEP与</span><span style="font-family:Times New Roman;">WPA</span><span style="font-family:宋体;">加密和破解<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">这书讲的太浮浅，需要自己看</span><span style="font-family:Times New Roman;">WEP</span><span style="font-family:宋体;">、</span><span style="font-family:Times New Roman;">WPA</span><span style="font-family:宋体;">协议<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">WPA分为</span><span style="font-family:Times New Roman;">PSK</span><span style="font-family:宋体;">家庭用和</span><span style="font-family:Times New Roman;">EAP</span><span style="font-family:宋体;">企业用（多个</span><span style="font-family:Times New Roman;">802.1X</span><span style="font-family:宋体;">验证）  可以为</span><span style="font-family:Times New Roman;">TKIP</span><span style="font-family:宋体;">或者</span><span style="font-family:Times New Roman;">AES</span><span style="font-family:宋体;">加密（显示</span><span style="font-family:Times New Roman;">CCMP</span><span style="font-family:宋体;">）<br />
+</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">WEP破解<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">主要思路是讲无线网卡变为混杂模式后，大量抓包，然后从中分析出密码。<br />
+</span></p>
+<p style="text-align:justify;"><span style="color:red;font-size:10pt;"><span style="font-family:宋体;">（具体过程看</span><span style="font-family:Times New Roman;">WEP</span><span style="font-family:宋体;">协议</span><span style="font-family:Times New Roman;">)</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">主要使用</span><span style="font-family:Times New Roman;">aircrack-ng</span><span style="font-family:宋体;">工具（</span><span style="font-family:Times New Roman;">windows</span><span style="font-family:宋体;">和</span><span style="font-family:Times New Roman;">linux</span><span style="font-family:宋体;">版本）<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">Airmon-ng start wlan0: <span style="color:red;">变混杂模式</span>  变为</span><span style="font-family:Times New Roman;">mon0</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">Airodump-ng mon0:<span style="color:red;">查看无线基本情况<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">Airodump -w 要存的文件 </span><span style="font-family:Times New Roman;">-c </span><span style="font-family:宋体;">频道 网卡</span><span style="font-family:Times New Roman;">wlan0  </span><span style="color:red;font-family:宋体;">抓包<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">Aireplay -3 -b APMAC -h ClientMAC mon0 <span style="color:red;">加快发包 </span></span><span style="font-family:Times New Roman;">-3 ARPREQUEST</span><span style="color:red;font-family:宋体;">加快发包<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">Aircrack-ng 抓包后文件 </span><span style="font-family:Times New Roman;">-w </span><span style="font-family:宋体;">字典文件 <span style="color:red;">破解<br />
+</span></span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">全自动工具</span><span style="font-family:Times New Roman;">SpoonWEP2</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">WPA破解<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">主要思路是获取握手信息，然后进行暴力破解<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">Aireplay -0 次数 </span><span style="font-family:Times New Roman;">-b APmac -h ClientMac wlan0  </span><span style="color:red;font-family:宋体;">发送取消验证报文，获得握手报文<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="color:red;font-family:宋体;font-size:10pt;">暴力破解使用字典。<br />
+</span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">Cowpatty破解工具<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">Cowpatty -f dic -f cap文件 </span><span style="font-family:Times New Roman;">-s ssid  (</span><span style="font-family:宋体;">也可以使用</span><span style="font-family:Times New Roman;">hash</span><span style="font-family:宋体;">表</span><span style="font-family:Times New Roman;">)</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">全自动工具</span><span style="font-family:Times New Roman;">SpoonWPA</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">字典文件</span><span style="font-family:Times New Roman;">*.lst *.dic</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">2. MAC地址突破<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">使用</span><span style="font-family:Times New Roman;">airmon-ng mon0 </span><span style="font-family:宋体;">查看客户端</span><span style="font-family:Times New Roman;">MAC</span><span style="font-family:宋体;">，修改与客户端相同的</span><span style="font-family:Times New Roman;">MAC </span><span style="font-family:宋体;">使用</span><span style="font-family:Times New Roman;">SMAC</span><span style="font-family:宋体;">修改<br />
+</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">3. 破解</span><span style="font-family:Times New Roman;">SSID</span><span style="font-family:宋体;">关闭的<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">主要是断开客户端，重新连接时就可以抓包获得</span><span style="font-family:Times New Roman;">SSID</span><span style="font-family:宋体;">号。发送取消验证报文就可以<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">4. 破解无</span><span style="font-family:Times New Roman;">DHCP</span><span style="font-family:宋体;">分配<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">抓包，使客户端重新发送</span><span style="font-family:Times New Roman;">DHCP</span><span style="font-family:宋体;">报文，监听。发送取消验证报文，使客户端断线即可<br />
+</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">5. 抓包分析<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">使用</span><span style="font-family:Times New Roman;">airodump</span><span style="font-family:宋体;">抓包后，在获得</span><span style="font-family:Times New Roman;">WEP,WPA</span><span style="font-family:宋体;">密码后，使用</span><span style="font-family:Times New Roman;">CAIN</span><span style="font-family:宋体;">将报文进行解密。解密后就可以</span><span style="font-family:Times New Roman;">wireshark</span><span style="font-family:宋体;">包进行分析<br />
+</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">暴力破解</span><span style="font-family:Times New Roman;">Hydra BurteSSH</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">缓冲区溢出</span><span style="font-family:Times New Roman;">metasploit3</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">6. DOS攻击<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">主要使用</span><span style="font-family:Times New Roman;">mdk3 (linux), </span><span style="font-family:宋体;">图形化</span><span style="font-family:Times New Roman;">charon</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">原理：无线客户端连接</span><span style="font-family:Times New Roman;">AP</span><span style="font-family:宋体;">的过程<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">三种状态<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">State1 没有验证，没有关联<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">State2 验证通过，没有关联  </span><span style="font-family:Times New Roman;">(</span><span style="font-family:宋体;">通过密码验证，没有获得</span><span style="font-family:Times New Roman;">IP</span><span style="font-family:宋体;">）<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">State3 通过验证，已经关联 （通过密码验证，获得</span><span style="font-family:Times New Roman;">IP</span><span style="font-family:宋体;">）<br />
+</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">对应分为四种方式<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">1. 身份验证攻击<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">2. 取消身份验证攻击<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">3. 关联攻击<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">4. 取消关联攻击<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">5. RF攻击： 干扰<br />
+</span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">身份，关联攻击使得</span><span style="font-family:Times New Roman;">AP</span><span style="font-family:宋体;">状态表满，不能再加入<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">取消攻击，使得客户端掉线<br />
+</span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">7. WPA-PSK高速破解<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">因为普通</span><span style="font-family:Times New Roman;">PC</span><span style="font-family:宋体;">正向破解速度慢，要破解密码不太现实，所以使用以下方法</span><span style="font-family:Times New Roman;">:</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">第一个种思路是制作提前</span><span style="font-family:Times New Roman;">pmk HASH</span><span style="font-family:宋体;">表，与网上</span><span style="font-family:Times New Roman;">MD5</span><span style="font-family:宋体;">破解思路相同</span><span style="font-family:Times New Roman;">, </span><span style="font-family:宋体;">但这个</span><span style="font-family:Times New Roman;">HASH</span><span style="font-family:宋体;">表与</span><span style="font-family:Times New Roman;">ssid</span><span style="font-family:宋体;">相关，特定性强，需要自己使用</span><span style="font-family:Times New Roman;">genpmk</span><span style="font-family:宋体;">制作</span><span style="font-family:Times New Roman;">:(</span><span style="font-family:宋体;">很慢</span><span style="font-family:Times New Roman;">)</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">语法：</span><span style="font-family:Times New Roman;">genpmk -f </span><span style="font-family:宋体;">字典文件 </span><span style="font-family:Times New Roman;">-d hash</span><span style="font-family:宋体;">表 </span><span style="font-family:Times New Roman;">-s ssid</span><span style="font-family:宋体;">名称<br />
+</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">第二种思路是使用</span><span style="font-family:Times New Roman;">GPU</span><span style="font-family:宋体;">并行加快急速 使用</span><span style="font-family:Times New Roman;">N</span><span style="font-family:宋体;">卡的</span><span style="font-family:Times New Roman;">CUDA</span><span style="font-family:宋体;">语言，</span><span style="font-family:Times New Roman;">EWSA</span><span style="font-family:宋体;">工具<br />
+</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">第三种是分布式<br />
+</span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">8. 伪造</span><span style="font-family:Times New Roman;">AP </span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">使用</span><span style="font-family:Times New Roman;">MDK3</span><span style="font-family:宋体;">即可，语法：</span><span style="font-family:Times New Roman;">mdk3 </span><span style="font-family:宋体;">网卡 </span><span style="font-family:Times New Roman;">b -g -c </span><span style="font-family:宋体;">频道<br />
+</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">9. 无客户端破解<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">主要是破解</span><span style="font-family:Times New Roman;">WEP</span><span style="font-family:宋体;">，没有客户端无法获得</span><span style="font-family:Times New Roman;">WPA</span><span style="font-family:宋体;">握手信息<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">主要思路是主动让</span><span style="font-family:Times New Roman;">AP</span><span style="font-family:宋体;">产生报文即可<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">主要使用</span><span style="font-family:Times New Roman;">chopchop</span><span style="font-family:宋体;">攻击和</span><span style="font-family:Times New Roman;">fragment</span><span style="font-family:宋体;">攻击（具体原理自己找找看</span><span style="font-family:Times New Roman;">)\</span><span style="font-family:宋体;"><br />
+			</span></span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">使用</span><span style="font-family:Times New Roman;">spoonWEP2</span><span style="font-family:宋体;">即可<br />
+</span></span></p>
+<p style="text-align:justify;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">10. WAR-DRING及地图绘制<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;">War-dring弄个车或者弄个智能手机即可。<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-size:10pt;"><span style="font-family:宋体;">地图绘制</span><span style="font-family:Times New Roman;">PC</span><span style="font-family:宋体;">使用</span><span style="font-family:Times New Roman;">netstumble,inssider.</span><span style="font-family:宋体;">手机使用</span><span style="font-family:Times New Roman;">wififofum </span><span style="font-family:宋体;">可以保存为</span><span style="font-family:Times New Roman;">kml</span><span style="font-family:宋体;">格式，导入</span><span style="font-family:Times New Roman;">google earth</span><span style="font-family:宋体;">即可<br />
+</span></span></p>
+<p style="text-align:justify;"><span style="font-family:宋体;font-size:10pt;"><br />
+		</span> </p>

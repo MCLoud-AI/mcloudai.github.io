@@ -1,0 +1,44 @@
+---
+layout: post
+title: 实现DNS教育网与公网 动态解析
+date: 2008-09-12 19:54:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '4161518641663933731'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>经过几天的奋战终于解决的教育网用户和公网用户动态解析问题，关键不是DNS配置问题不了解自己解析域名的机制</p>
+<p>如果你申请了一个域名your.com</p>
+<p>那么你想用的DNS解析your.com</p>
+<p>那么你就得注册一下你的DNS，比如ns1.your.com -&gt; 你的DNS ip 这样才能解析</p>
+<p>好，下面介绍实现过程</p>
+<p>申请一个your.com</p>
+<p>注册DNS</p>
+<p>ns1.your.com -&gt; 公网ip</p>
+<p>ns2.your.com -&gt;教育网ip</p>
+<p>测试用http://www.internic.net/whois.html</p>
+<p>下面是在dns做的配置</p>
+<p>acl "edu" {            //教育网的acl列表</p>
+<p>202.119.0.0/16;<br />211.70.0.0/16;<br />219.219.0.0/16;<br />121.248.0.0/16;}；</p>
+<p>view "edu" {<br />        match-clients { edu; };<br />        zone "surpasslab.com" {<br />        type master;<br />        file "surpasslab-edu.zone";<br />        };<br />};</p>
+<p>view "internet" {<br />        match-clients {  any; };<br />        zone "surpasslab.com" {<br />        type master;<br />        file "surpasslab-internet.zone";<br />        };<br />};</p>
+<p>下面就要对.zone进行配置，只要edu.zone配置教育网IP internet.zone配置公网ip就可以</p>
+<p>surpasslab-internet.zone</p>
+<p>$TTL    86400<br />@               IN SOA  ns1       root (<br />                                        1111111         ; serial (d. adams)<br />                                        3H              ; refresh<br />                                        15M             ; retry<br />                                        1W              ; expiry<br />                                        1D )            ; minimum<br />                IN NS           ns1<br />                IN NS           ns2<br />@               IN MX 10        mail<br />ns1             IN A            58.218.185.119<br />ns2             IN A            121.248.108.23<br />mail            IN A            58.218.185.119<br />www             IN A            58.218.185.119<br />bbs             IN A            58.218.185.119<br />ftp             IN A            58.218.185.119</p>
+<p> surpasslab-edu.zone</p>
+<p>$TTL    86400<br />@               IN SOA  ns1       root (<br />                                        1111111         ; serial (d. adams)<br />                                        3H              ; refresh<br />                                        15M             ; retry<br />                                        1W              ; expiry<br />                                        1D )            ; minimum<br />                IN NS           ns1<br />                IN NS           ns2<br />@               IN MX 10        mail<br />ns1             IN A            58.218.185.119<br />ns2             IN A            121.248.108.23<br />mail            IN A            121.248.108.23<br />www             IN A            121.248.108.23<br />bbs             IN A            121.248.108.23<br />ftp             IN A            121.248.108.23<br />~
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

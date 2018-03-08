@@ -1,0 +1,29 @@
+---
+layout: post
+title: linux(red flag)下java乱码问题解决
+date: 2009-03-04 18:19:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '7423315705592869801'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>今天装上redflag7.0出现此问题，fedora,rhel没有此问题</p>
+<p>1.编码乱码解决</p>
+<p>因为中文windows下使用的是GBK，linux 下是UTF-8 所以编辑是乱码，改变编码即可</p>
+<p>2.程序运行后中文显示为小框</p>
+<p>因为没有simsun.ttf字体，拷贝windows/fonts下字体（本来是.ttc改为.ttf) 放到$JAVA_HOME/jre/lib/fonts 建立fallbak文件夹，考入即可
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

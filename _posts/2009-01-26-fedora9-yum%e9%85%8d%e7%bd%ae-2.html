@@ -1,0 +1,30 @@
+---
+layout: post
+title: fedora9 yum配置
+date: 2009-01-26 02:18:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Unix/Linux
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '8199937847990599974'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p><strong>添加新源到yum 和安装yum插件</strong><strong><br /></strong>由于版权原因fedora 官方源里没有很多我们想要到东西，所以我们要添加一些非官方源，其中以livna 源和freshrpms 源最大家所熟知。<strong><br /></strong>#rpm -ivh http://rpm.livna.org/livna-release-9.rpm<br />#rpm –import http://rpm.livna.org/RPM-LIVNA-GPG-KEY<br /># rpm -ivh http://ftp.freshrpms.net/pub/freshrpms/fedora/linux/9/freshrpms-release/freshrpms-release-1.1-1.fc.noarch.rpm<br />#rpm –import http://ftp.freshrpms.net/pub/freshrpms/RPM-GPG-KEY</p>
+<p>从加速的原理上无非有两点，一是使用更好的下载工具，二是在更快的源中去下载。而yum是支持plugin的方式的，给我们提供了便利。综合网上找到的资料，再结合自己的使用来说一下。</p>
+<p>1，使用axel来作为下载工具。<br />[luyao@localhost btdown]$ wget http://wilmer.gaast.net/downloads/axel-1.0b.tar.gz<br />[luyao@localhost btdown]$ tar zxvf axel-1.0b.tar.gz<br />[luyao@localhost btdown]$ cd axel-1.0b<br />[luyao@localhost btdown]$ ./configure<br />[luyao@localhost btdown]$ make<br />[root@localhost btdown]# make install<br />[luyao@localhost btdown]$ wget http://cnfreesoft.googlecode.com/svn/trunk/axelget/axelget.conf<br />[luyao@localhost btdown]$ wget http://cnfreesoft.googlecode.com/svn/trunk/axelget/axelget.py<br />[root@localhost btdown]# cp axelget.conf /etc/yum/pluginconf.d/<br />[root@localhost btdown]# cp axelget.py /usr/lib/yum-plugins/</p>
+<p>2，使用fastmirror让它自动匹配最快的源<br />[root@localhost yum.repos.d]# yum install yum-fastestmirror</p>
+<p>3，尝试更新一下，OK，所用的插件都正常。<br />[root@localhost luyao]# yum update<br />Loaded plugins: axelget, fastestmirror, refresh-packagekit<br />Loading mirror speeds from cached hostfile</p>
+<p> 不写到博客里面老忘，这都弄了N回了，浪费时间，写上来下次忘了直接看
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

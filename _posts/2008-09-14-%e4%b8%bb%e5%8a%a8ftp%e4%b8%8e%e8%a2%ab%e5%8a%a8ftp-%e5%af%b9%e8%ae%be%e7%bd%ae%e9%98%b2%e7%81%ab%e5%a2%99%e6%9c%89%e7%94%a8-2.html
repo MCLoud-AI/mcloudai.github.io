@@ -1,0 +1,41 @@
+---
+layout: post
+title: 主动ftp与被动ftp 对设置防火墙有用
+date: 2008-09-14 00:21:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '472374771194669648'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>当时在学生在线做过这个，但由于时间常忘了，现在整理一下</p>
+<p>ftp 只有tcp</p>
+<p>21:命令</p>
+<p>20:数据</p>
+<p>主动DNS 对服务器的开销很大</p>
+<p>c-&gt;s 21 请求命令  (防火墙要accept 21 in)</p>
+<p>s-&gt;c 20 发送数据</p>
+<p>被动DNS</p>
+<p>c-&gt;s 21请求命令</p>
+<p>c-&gt;s 大于1024的端口, 建立连接，发送数据 (防火墙要accept 这个端口)</p>
+<p>vsftpd 配置被动端口</p>
+<p>pasv_max_port=20000<br />pasv_min_port=20000ie默认被动</p>
+<p>命令行默认主动</p>
+<p>vsftpd配置几点注意</p>
+<p>如果要让用户可以访问自己的家</p>
+<p>setsebool -P ftp_home_dir on</p>
+<p>chcon -R -t public_content_rw_t 自己的家目录
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

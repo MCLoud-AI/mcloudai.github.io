@@ -1,0 +1,115 @@
+---
+layout: post
+title: updating freebsd
+date: 2012-06-04 22:52:45.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+- Unix/Linux
+tags:
+- freebsd
+meta: {}
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>1. 基本命令</p>
+<p>看网络接口</p>
+<p>sockstat -4<br />
+lsof -i<br />
+pkg_info -L -i 列出具体安装位置<br />
+date 查看时间<br />
+ntpdata pool.ntp.org 立即同步时间</p>
+<p>开机自动同步 /etc/rc.local<br />
+ntpdate pool.ntp.org<br />
+源码方式更新。。。<br />
+修改pkg下载</p>
+<p>csh在rc.local中添加如下行</p>
+<p>setenv PACKAGEROOT ftp://ftp.tw.freebsd.org</p>
+<p>立即生效 sh /etc/rc</p>
+<p>bash下/etc/profile</p>
+<p>export PACKAGEROOT=ftp://ftp.tw.freebsd.org</p>
+<p>立即生效source /etc/profile<br />
+pkg_add -r wget<br />
+pkg_add -r axel</p>
+<p>多线程ports并修改默认下载地址</p>
+<p>FETCH_CMD= axel -a (wget) #default download tool as axel<br />
+DISABLE_SIZE="YES"<br />
+MASTER_SITE_OVERRIDE=ftp://ftp.cn.freebsd.org/pub/FreeBSD/ports/distfiles/${DIST_SUBDIR}\</p>
+<p>ftp://ftp2.cn.freebsd.org/pub/FreeBSD/ports/distfiles/${DIST_SUBDIR}<br />
+~</p>
+<p>（一定要设置对，要不影响升级）</p>
+<p>FETCH_CMD= wget #default download tool as axel<br />
+DISABLE_SIZE="YES"<br />
+MASTER_SITE_BACKUP?= \<br />
+ftp://ftp.cn.freebsd.org/pub/FreeBSD/ports/distfiles/${DIST_SUBDIR}/ \<br />
+ftp://ftp2.cn.freebsd.org/pub/FreeBSD/ports/distfiles/${DIST_SUBDIR}/<br />
+MASTER_SITE_OVERRIDE? = ${MASTER_SITE_BACKUP}<br />
+# added by use.perl 2012-06-02 13:10:08<br />
+PERL_VERSION=5.12.4</p>
+<p>还可以修改axel的下载线程：</p>
+<p>vim /usr/local/etc/axelrc<br />
+修改获取ports主站：不是ports本身下载地址</p>
+<p>ee /etc/portsnap.conf</p>
+<p>更改SERVERNAME的值：</p>
+<p>SERVERNAME=portsnap.cn.FreeBSD.org</p>
+<p>复制代码<br />
+或</p>
+<p>SERVERNAME=portsnap.tw.FreeBSD.org</p>
+<p>复制代码</p>
+<p>2、更新ports:<br />
+Portsnap 是另一种用于发布 Ports 套件的方法。 它最早从 FreeBSD 6.0 开始引入。 在较早的系统中， 您可以通过 ports-mgmt/portsnap package 来安装它.</p>
+<p>首次运行 Portsnap</p>
+<p>portsnap fetch<br />
+portsnap extract</p>
+<p>更新 Ports Tree</p>
+<p>portsnap fetch update</p>
+<p>3. 更新 BATCH=yes 避免交互 --batch</p>
+<p>最好先使用pkgdb -aF 修复db数据库 然后进行升级 升级后在修复一下<br />
+先查看哪些需要更新 pkg_version -v<br />
+使用portupgrade<br />
+-a 所有 -P使用package更新优先，失败后尝试其他 -PP只用package -f重新安装<br />
+-r -R 进行依赖检查 -y 对所有问题都是yes<br />
+portupgrade xxx 指定更新</p>
+<p>portupgrade -aRf --batch 平时不用带f 系统升级时一定带f</p>
+<p>也可以不用ports<br />
+使用独立的更新软件portmaster<br />
+-L 那哪些更新<br />
+-a 所有<br />
+-f 修正<br />
+--check-depends 检查所有依赖关系进行修复<br />
+xxxx 指定更新</p>
+<p>4.清理<br />
+portsclean -C (为portupgrade的一部分)<br />
+二进制更新方式<br />
+freebsd-update</p>
+<p>升级软件<br />
+# freebsd-update fetch<br />
+# freebsd-update install</p>
+<p>crontab中<br />
+freebsd-update cron</p>
+<p>升级系统<br />
+1.freebsd-update -r 8.1-RELEASE upgrade</p>
+<p>2.freebsd-update install<br />
+3.重启<br />
+4. freebsd-update install</p>
+<p>更新之前修复数据库<br />
+5. portupgrade -aRf --batch f一定要带 要不很多程序还去找以前的包<br />
+6. freebsd-update install</p>
+<p>很多程序运行不了 安装上一个版本的兼容包<br />
+/usr/ports/misc/compatX</p>
+<p>If you get the following error:<br />
+The update metadata is correctly signed, but failed an integrity check.<br />
+Cowardly refusing to proceed any further.<br />
+Then simply patch your freebsd-update using the following command (source):<br />
+sed -i '' -e 's/=_/=%@_/' /usr/sbin/freebsd-update<br />
+freebsd-update更新系统程序 ports更新三方程序</p>
+<p>&nbsp;</p>
+<p>freebsd最新模拟程序基于fedora 10 所以fedora10不支持的的软件 这里也无法运行。。 还是运行fedora虚拟机即可</p>

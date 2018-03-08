@@ -1,0 +1,35 @@
+---
+layout: post
+title: 配置surpasslab服务器总结
+date: 2008-11-11 18:58:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Unix/Linux
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '3037674110609032891'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>到今天配置这个服务器可以说告一段落了</p>
+<p>1.首先搞定了动态的DNS，这个是一个大手笔，在以前的文章里面有详细的介绍</p>
+<p>2.然后配置LAMP，话说有了YUM后，一切变的简单了，直接yum install php php-mysql mysql mysql-server(服务器)</p>
+<p> php错误提示问题</p>
+<p>chcon -t texrel_shlib_t ZendOptimizer.so </p>
+<p>3.安装了discuz 6.1.0 把以前的在别人服务器上的discuz 6.0.0移至过来，这个过程看似很简单，但是6.0到6.1一个关键的转变就是多了ucenter总之账号管理，就跟nis,ldap,dc是一样的道理，记着，首先装老版本的discuz将数据还原以后，再升级，这样才可以成功</p>
+<p>4. 之后装supesite/x-space 时候遇到了没有zend optimer加速器的问题，打开install.php就是个白屏，问题出在此时php已经错误，但是默认的php就不显示错误，所以没有办法，打开/etc/php.ini 修改display-error以后，再根据页面提示，进行修改，</p>
+<p>5.进行安装的时候要使用不是root的账号，使用grant 配置权限，但是更好的做法就是安装myphpadmin,这是一个web的DBMS，在这里进行管理更加的方便</p>
+<p>6.最后就是配置mail服务，安装postfix,dovecot,(rhce考试里面的基本内容), 然后我惊奇的发线yum里面有 squerrirmail真是很爽，然后直接安装，之后配置/usr/share/squirrelmail/config/conf.pl 配置一个domain 然后一切就OK了，还要配置语言/etc/squirrelmail/config.php,$squirrelmail_default_language = 'zh_CN'; 就可以显示中文了，这样就好了</p>
+<p>7,之后要做的工作的是最一个日志发送程序，这样就可以更好的管理了，我将在后面的文章里写出来, </p>
+<p>8.还有就是contrab -e 里面加入yum update -y更新 呵呵 很重要
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

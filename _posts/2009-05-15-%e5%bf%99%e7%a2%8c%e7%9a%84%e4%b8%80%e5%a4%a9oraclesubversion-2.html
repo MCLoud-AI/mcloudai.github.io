@@ -1,0 +1,32 @@
+---
+layout: post
+title: 忙碌的一天(oracle,subversion)
+date: 2009-05-15 11:06:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Programming
+tags: []
+meta:
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '4604577029190348448'
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>说实话，今天真够忙的，做个课程设计表是几个人一起建的，我死活导入oracle导入不进去，我一看居然发现了reference? 都不会加个s的，郁闷，然后又看到神奇的char,我一直是用varchar的，这个有什么区别，先用着，然后我导入之后，用了，两个返回的密码是一样的，但是equals就是不一样，就不搞笑么，突然看见好像后面有空格，晕 一看数据库表上面写的是char(8) 这回知道了，char就是不管数据多长，永远都是固定的，呵呵，神奇了，狂改一番之后，终于搞定了，呵呵</p>
+<p>下面说说oracle这个东东，真是稳定，好爽，每个用户有自己的表空间，每个用户都不冲突，管理工具，有web的，命令行的，也有企业管理器sql developer这个很好用，还有一点就是oracle里面有个sid，我用这个纠结了一会，这个其实就是数据库名字，oracle着东西很神奇，建立一个数据库很慢，默认是orcl,呵呵，以后一直使用这个就好了，</p>
+<p>下面说说怎么创建账号</p>
+<p>在sql deveploper上other user 点create user 这个时候在授权里面选上connect resoures就可以了。呵呵 很好 很强大么</p>
+<p>再说说，就是那个vista 就一个windows目录就12G ,我直接崩溃了， windows 7才6.5G 但是oracle 11g先不支持windows 7我强行装上的，但也没出什么毛病，呵呵，连接数据库出问题了，呵呵问题出在oracle的jdbc使用thin模式，使用java.sql.connection 把mysql的这个去掉就可以了。</p>
+<p> </p>
+<p>还有就是我加的4G内存，哎 系统就只识别到3.25G 我修改vista内核支持了，但很不稳定，经常的断，我都崩溃了，现在就在3.25G下跑着 也没什么慢的 挺好的</p>
+<p>现在就在使用subversion，这个东西真方便 呵呵。 我在装个subclipse感受一下 ，好东西真多，赶紧写东西了
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

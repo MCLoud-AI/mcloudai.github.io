@@ -1,0 +1,46 @@
+---
+layout: post
+title: 让vista支持到4GB内存
+date: 2009-05-07 17:14:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '7474438254498159375'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>用上oracle机子实在太卡，内存最近也在疯长 ·就赶紧买了两个1GB插上</p>
+<p>但引导系统进去后发现·总是3.25GB 郁闷了，不是被骗了吧</p>
+<p>进BIOS看看，是好的，是不是操作系统限制了，进入linux 一看郁闷了还是3.25g 想想以前有个叫kernel-pae的内核支持到128GB内存，试试果然识别了</p>
+<p>现在就是在windows下如何开启pae的问题了</p>
+<p>上网查查 使用bcdedit /set  pae ForceEnable之后进入系统，还是没变，上网搜搜，网上说vista是默认开启PAE的，那咋弄不能换个windows server 2008吧 那囧了··</p>
+<p>上网狂查 解决方案</p>
+<p>1. 用软件把剩余的内存模拟成磁盘，这个不爽</p>
+<p>2.使用windows 2008的内核 这个兼容性不好</p>
+<p>3. 修改现有内核 这个好</p>
+<p>下面是网上第3种的解决办法</p>
+<p><span style="color:#0000ff;">首先复制c:windowssystem32ntkrnlpa.exe核心文件到d盘，用16进制编辑工具（比如Ultraedit或hex editor）编辑d盘上的ntkrnlpa.exe, 搜索以下特征串:7c (xx) 8b 45 fc 85 c0 74 (yy) ，其实只能搜索中间的8b 45 fc 85 c0 74，注意看好8b前隔开一个16进制数之前的那一个数值，如果是7c，那就表示搜索到了(好像在第24个特征串处），共有两处，然后把两个地方都改 成:7c (xx) b8 00 00 02 00 90 90，也就是说从第三个数开始改，把8b改成b8，以此类推，改完后另存为例如c:windowssystem32 ntkr128g.exe  (有人要修改好的核心，现也贴上，是6001.18145版本），此时需要以管理员方式进入cmd命令行，运行如下命令：<br />cd windowssystem32<br />editbin /release ntkr128g.exe<br />makecert -r -ss my -n "CN=my test ca"      注意：这个CN=不能少，原文中没有。<br />signtool sign -s my -n "my test ca" ntkr128g.exe<br />同样在命令行中增加一个新的启动项,使用修改过的核心启动Vista:<br />bcdedit /copy {current} /d "Microsoft Windoows Vista （支持大内存）"<br />bcdedit /set {id} pae ForceEnable<br />bcdedit /set {id} kernel ntkr128g.exe<br />bcdedit /set {id} testsigning on<br />后三条命令中{}中的id必须根据第一条命令运行产生的结果输入，不能直接复制后三条命令，有不少人就犯了这个错误：）<br />再次强调以上所有操作都是在超级用户下做的，或者右击命令提示符，选择以管理员身份运行。<br />5. 重启后boot菜单选"Microsoft Windoows Vista （支持大内存）", 进去后看任务管理器里面的物理内存.</span></p>
+<p><span style="color:#0000ff;"><span style="color:#000000;">这个方法有点问题， 就是editbin makecert 这几个文件找不到</span></span></p>
+<p><span style="color:#0000ff;"><span style="color:#000000;">再搜</span></span></p>
+<p><span style="color:#0000ff;">其中 editbin 在 Visual Studio 中自带，而 makecert 和 signtool 在 Windows SDK 6.0 中自带，如果你机器上安装了 Visual Studio 2008 的话，第一个工具可以在 %VS2008_Dir% VC Bin 中找到，后两个工具可以在 %ProgramFiles% Microsoft SDKs Windows v6.0A bin 中找到。</span></p>
+<p>好把这个加入系统的PATH里面</p>
+<p>现在执行，又错误了，说没有什么80.dll 囧死了。</p>
+<p>再查</p>
+<p>网上说在vs/comon7/下发现此文件，考入 vc/bin/下</p>
+<p>这样就可以用了</p>
+<p>现在重启，爽了 哈哈任务管理器和我的电脑属性里面都显示4GB了 哈哈</p>
+<p>不过有点不爽··桌面上显示内部测试 ·这个不爽中···呵呵 整体还不错</p>
+<p>去水印RemoveWatermark 用这个就可以消去桌面的水印  windows7也可以
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

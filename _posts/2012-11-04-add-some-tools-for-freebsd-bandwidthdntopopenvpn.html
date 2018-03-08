@@ -1,0 +1,54 @@
+---
+layout: post
+title: 'add some tools for freebsd: bandwidthd,ntop,openvpn'
+date: 2012-11-04 22:42:24.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+- Unix/Linux
+tags: []
+meta:
+  _publicize_pending: '1'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p><strong>安裝bandwidthd</strong><br />
+# cd /usr/ports/net-mgmt/bandwidthd<br />
+# make install clean<br />
+# cd /usr/local/bandwidthd/etc<br />
+# cp bandwidthd.conf-dist bandwidthd.conf<br />
+# ee bandwidthd.conf 修改如下<br />
+subnet 10.0.0.0 255.0.0. //預設值<br />
+subnet 192.168.1.0/24 //修改要統計的網段<br />
+dev "eth0″ //預設值<br />
+dev "re0″ //修改網卡<br />
+存檔<br />
+# cd /usr/local/etc/rc.d<br />
+# cp bandwidthd.sh.sample bandwidthd.sh<br />
+# /usr/local/etc/rc.d/bandwidthd.sh start<br />
+# cd /usr/local/www/apache22/data<br />
+# ln -s /usr/local/bandwidthd/htdocs bandwidthd</p>
+<p><strong>網址輸入http://IP/bandwidthd</strong></p>
+<p>&nbsp;</p>
+<p><strong>安裝NTOP</strong><br />
+# cd /usr/ports/net/ntop/<br />
+# make install clean<br />
+# rehash<br />
+# ntop -A<br />
+輸入admin密碼兩次<br />
+# ee /etc/rc.conf 加入<br />
+ntop_enable="YES"</p>
+<p>ntop_flags="-d --use-syslog=daemon -4"</p>
+<p>存檔<br />
+# /usr/local/etc/rc.d/ntop start<br />
+網址輸入http://ip:3000/</p>
+<p>openvpn 适合链接局域网 不适合进行user到server的链接，不过有商用软件openvpn-as是可以的 但要钱</p>
+<p>sslexplorer一直没有安装成功  累啊</p>

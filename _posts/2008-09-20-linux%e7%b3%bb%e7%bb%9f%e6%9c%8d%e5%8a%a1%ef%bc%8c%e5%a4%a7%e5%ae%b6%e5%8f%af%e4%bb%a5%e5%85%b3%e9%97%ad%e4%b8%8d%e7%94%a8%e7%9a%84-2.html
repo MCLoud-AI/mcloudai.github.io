@@ -1,0 +1,41 @@
+---
+layout: post
+title: linux系统服务，大家可以关闭不用的
+date: 2008-09-20 00:07:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Unix/Linux
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '3608069077995005064'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p><span style="font-family:楷体_GB2312;">acpid</span><br /><span style="font-family:楷体_GB2312;">ACPI （全称  Advanced Configuration and Power Interface）服务是电源管理接口</span></p>
+<p>anacron, atd, cron<br />这几个调度程序有很小的差别。 建议开启 cron</p>
+<p>apmd<br />一些笔记本和旧的硬件使用 apmd。</p>
+<p>autofs<br />该服务自动挂载可移动存储器（比如 USB 硬盘）。</p>
+<p>avahi-daemon, avahi-dnsconfd<br />Avahi 是 zeroconf 协议的实现</p>
+<p>bluetooth, hcid, hidd, sdpd, dund, pand<br />蓝牙（Bluetooth）是给无线便携设备使用的（非 wifi,  802.11）。</p>
+<p>capi<br />仅仅对使用 ISDN 设备的用户有用</p>
+<p>firstboot<br />该服务是 Fedora 安装过程特有的</p>
+<p>gpm<br />终端鼠标指针支持（无图形界面）。</p>
+<p>hplip, hpiod, hpssd<br />HPLIP 服务在 Linux 系统上实现 HP 打印机支持</p>
+<p>irda, irattach<br />IrDA 提供红外线设备（笔记本，PDA's，手机，计算器等等）间的通讯支持。</p>
+<p>isdn<br />这是一种互联网的接入方式</p>
+<p>mctrans<br />如果你使用 SELinux 就开启它</p>
+<p>mdmonitor<br />该服务用来监测 Software RAID 或 LVM 的信息</p>
+<p>messagebus<br />这是 Linux 的 IPC（Interprocess Communication，进程间通讯）服务。确切地说，它与 DBUS  交互，是重要的系统服务。强烈建议开启它。</p>
+<p>netfs<br />该服务用于在系统启动时自动挂载网络中的共享文件空间，比如：NFS，Samba  等等。如果你连接到局域网中的其它服务器并进行文件共享，就开启它。大多数台式机和笔记本用户应该关闭它。</p>
+<p>xfs：X Window字型服务器守护进程，为本地和远程X服务器提供字型集
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

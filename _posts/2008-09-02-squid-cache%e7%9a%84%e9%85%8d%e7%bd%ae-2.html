@@ -1,0 +1,28 @@
+---
+layout: post
+title: squid cache的配置
+date: 2008-09-02 12:28:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+tags: []
+meta:
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '7884631623041086096'
+  blogger_author: yangyilong
+  blogger_blog: everydaydreamy.blogspot.com
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p><font face="arial,helvetica,sans-serif">1. cache_mem   指定物理内存的大小作为高速缓存  三分之一就可以了<br />   cache_dir   指定硬盘缓冲区的大小<br /></font></p>
+<p><font face="arial,helvetica,sans-serif">2.調整cache swap的高低水平，以維持cache資料有效率的置換</font></p>
+<p><font face="Arial">  cache_swap_low 80   百分比<br />  cache_swap_high 95</font></p>
+<p><font face="arial,helvetica,sans-serif">3. cache_dir ufs /var/spool/squid 4096 16 256<br /> ufs: 缓存类型<br /> /var/spool/squid: 缓存目录<br /> 4096：缓存大小<br /> 16: 一级子目录数<br /> 56: 二级子目录数</font>
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

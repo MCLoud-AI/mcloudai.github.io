@@ -1,0 +1,38 @@
+---
+layout: post
+title: 用http做ftp目录浏览，中文显示问题及index制定
+date: 2008-09-15 00:54:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '8930728714227932872'
+  blogger_author: yangyilong
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>Options Indexes<br />IndexOptions <font color="#ff0000">Charset=GB2312</font> FancyIndexing FoldersFirst HTMLTable SuppressHTMLPreambl</p>
+<p>IndexIgnore header.html footer.html<br />ReadmeName footer.html<br />HeaderName header.html</p>
+<p>红字为关键 ，这个原因在apache2.0以后的版本里面不支持AddDefaultCharst 所以要使用IndexOptions <font color="#ff0000">Charset=GB2312</font></p>
+<p>这个就可以解决中文乱码问题</p>
+<p>原理就是windows所用编码为GB2312 linux用的是utf-8 apache默认用iso-8859-1</p>
+<p>下面就是定制的一些参数</p>
+<p>IndexOptions  FancyIndexing //开始定制功能</p>
+<p>FoldersFirst //目录显示在最前面<br />HTMLTable//生成的代码以表格形式表示</p>
+<p>SuppressHTMLPreamble //禁止apache生成目录之外的标签，这样才能用自己的</p>
+<p>IndexIgnore header.html footer.html //忽略这两个文件，不显示</p>
+<p>ReadmeName footer.html   //自定义的网页footer</p>
+<p>HeaderName header.html  //自定义的网页header</p>
+<p>IndexStyleSheet "/css/style.css"  //自定义网页的ccs<br />
+<h2><a title="AddDefaultCharset" name="AddDefaultCharset" id="AddDefaultCharset"></a><br /><a title="adddefaultcharset" name="adddefaultcharset" id="adddefaultcharset"></a></h2>
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

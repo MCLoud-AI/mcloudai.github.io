@@ -1,0 +1,53 @@
+---
+layout: post
+title: Different between DLV and Clasp/Gringo
+date: 2012-11-13 01:02:17.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- foundation of mathematics
+tags:
+- asp
+- clasp
+- dlv
+- gringo
+meta:
+  _publicize_pending: '1'
+  _oembed_a86910626b2193cfb85d4b70fa07d4e4: "{{unknown}}"
+  _oembed_6fa18db48804c6cdb718ba737ad75403: "{{unknown}}"
+  _oembed_27c734f783c459314959009fb598e37c: "{{unknown}}"
+  _oembed_930f2e648e0933c03398eaad0501e785: "{{unknown}}"
+  _oembed_b98d77563063109f5de3bf70f46f7854: "{{unknown}}"
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>DLV:</p>
+<p>support list/set and query.</p>
+<p>query:  (faced -  model check : check property in answer set )   grounded: check / non-ground : get the result</p>
+<p>a. brave :  satisiable,  witness: sat model.</p>
+<p>b. cautious :  vaild (predicate),  witness: not sat model .</p>
+<p>c. default: get the satisiable model.</p>
+<p>constraint: (resersed)</p>
+<p>weak :  get the model which violate minimum constraint.</p>
+<p>not support: math more than three, but i can use the external call for c/c++.</p>
+<p>Clasp/Gringo:</p>
+<p>support:</p>
+<p>arithmetric support more than three numbers.</p>
+<p>&nbsp;</p>
+<p>Different:</p>
+<p>Disjuctive : v(DLV)  ,(C)</p>
+<p>Aggreate:  func to the weight of each elements in symbolic set(C) : default : 1</p>
+<p>func to the first elements itself in symbolic set</p>
+<p>to func once for same element in set : [](C), give the second variable(DLV)</p>
+<p>generate: disjunctive(DLV), 1{}1 (C)</p>
+<p>Aggrete function(DLV) without predicate.  minimize maximize (DLV)</p>
+<p>Contorl result:  in code (C), in command parameters(DLV)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

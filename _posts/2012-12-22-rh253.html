@@ -1,0 +1,4075 @@
+---
+layout: post
+title: RH253
+date: 2012-12-22 02:29:41.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Unix/Linux
+tags: []
+meta:
+  _publicize_pending: '1'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p style="text-align:center;"><span style="font-family:新宋体;font-size:22pt;">RH253<br />
+</span></p>
+<p style="text-align:center;">
+ </p>
+<p style="text-align:justify;"><span style="font-family:新宋体;font-size:12pt;">目录<br />
+</span></p>
+<p><a href="#_Toc221969053">unit 1 system monitoring    - 2 -<span style="font-family:Times New Roman;font-size:10pt;"><br />
+			</span></a></p>
+<p><a href="#_Toc221969054">unit 2 service management    - 6 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969055">unit 3 securing services    - 9 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969056">unit 4 securing data    - 12 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969057">unit 5 authentication services    - 14 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969058">unit6 iptables    - 16 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969059">unit 7 organzing network system    - 21 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969060">unit8 http    - 29 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969061">unit 9 network file sharing services    - 32 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969062">unit 10 NIS （network information service)    - 34 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969063">unit 11 file transfer protocaol (ftp)    - 38 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969064">unit 12 samba services    - 40 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p><a href="#_Toc221969065">unit 13 mail    - 44 -</a><span style="font-family:Times New Roman;font-size:10pt;"><br />
+		</span></p>
+<p style="margin-left:21pt;"><span style="font-family:新宋体;font-size:10pt;">本内部资料由杨溢龙编写，希望在RHCE的考试道路上祝大家一臂之力<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">                            YOU ARE THE ONE RHCE<br />
+</span></p>
+<h1>unit 1 system monitoring<br />
+</h1>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.file system monitoring<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  df -h<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  du -h /tmp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  du -sh /tmp 只看tmp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  du -ah /tmp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  logwatch 检查log files有无错误<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.log file analysis<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.prosess<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">扫描器nmap -P0 无法ping时利用 -A判断系统和服务版本<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">suid sgid<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">监控suid sgid<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">find / -type f -perm +6000 找目录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-6000 找到两个1才可以   - and<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">+6000 找到一个1就可以了 + or<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">touch 6000<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">touch 2000<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">touch 4000<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">touch 6600<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chmod 6000 6000<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chmod 2000 2000<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chmod 4000 4000<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chmod 6600 6600<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">mount -o remount,nosuid / 去掉uid功能<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mount -o remount /<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">自己用户设置密码要有一定强度<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">无owner的档案<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">find / -nouser 找没有使用者的文件 -nogroup没有组的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">帐号被删掉了<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">解决：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">文件托管<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">find / -nouser -exec chown root.root {} \;<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">other 里面有o+w 有问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">find / -type f -perm -2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">find / -type d -perm -2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2   other<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">22  group other<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">222 user group other<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">ext2/3 filesystem attributes<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">lsattr 查看<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chattr +|-|= 属性 &lt;file&gt;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">A  不会修改时间<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">a  只允许append  // root only<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">d  dump备份时候不备份<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">i  不能改变  //root only  hacker把木马不能删除<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">j  记录在journal里<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">S  修改了就同步<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">监控log file<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.找设备问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.找出使用者的问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.外部攻击<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">要监控的log:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/var/log/messages     //system message<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/var/log/secure         //验证和xinetd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/var/log/vsftpd.log    //上传下载<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/var/log/maillog    //邮件咨询<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">log services:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.syslogd //deamon<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.klogd //kernel<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">config /etc/syslog.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">语法：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">facility(哪种服务).piority log_location(位置)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">facility:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">authpriv 验证事件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">cron     计划任务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">kern    <br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">lpr<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">news    新闻群组服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">syslog<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">priority<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">debug         详细<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">info          一般<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">notice         <br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">warning<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">err        错误<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">crit        紧急错误<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">alert        立刻要处理<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">emerg        严重问题不能提供服务<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">-代表先存在butter<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.vi /etc/syslog.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.service syslogd restart<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">高级syslogd config<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">operator:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.mail.info<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.mail.=info 只记录这个<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.mail.=!info 除了这个其他的都记录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.mail,cron.info info等级以上<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">special target<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.存放到特定使用者<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  kern.info    george,root<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.存放到remote machine<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  authpriv.*    @example<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  在//example中设置接受<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  vi /etc/sysconfig/syslog<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  加入-r<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">日志分析:logwatch<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">ls -l /etc/cron.daily/00-logwatch<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">调用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">每隔一小时就发<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mv /etc/cron.daily/00-logwatch /etc/cron.hourly<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">监控正在执行的进程<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">工具<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.top<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.gnome-system-monitor/kpm<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.sar<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.ps -axo pid,pcpu --sort=-pcpu | hand -n 10 |<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">top<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">P 按cpu大小排列<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">M 按memory<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">reporting是如何产生<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">sar: system activity reporting<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">必须安装sysstat<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/cron.d/sysstat<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.vi /etc/cron.d/sysstat<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">每10分钟  sa1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">每天25:53 sa2 整理报表<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.cd /var/log/sa<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.ls -l<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  sa     10分钟产生了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  sar    每天产生的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.vi sar31<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">之用sar直接看<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">history记录使用者命名<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">home/usrer1/.bash_history<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">last看登录记录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/var/log/wtmp 二进制看死了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">last user1其他使用者<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">psacct必须安装                  <br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. rpm -qa|grep psacct<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. accton /var/account/pacct 开始<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. accton 停止<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. ac -p 显示使用者登录多少时间<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   ac -d 显示每天的<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1>unit 2 service management<br />
+</h1>
+<p><span style="font-family:新宋体;font-size:10pt;">1.init<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.v script<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.direct command (非redhat application)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.xinetd<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.init<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> a.可以管理非tcp-ip服务(eg. virtual console)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> b.有再生的能力<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> c. /etc/inittab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.system v service(httpd) 包含服务真正的启动文件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  a.启动服务/etc/rc.d/init.d/httpd start<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  b. 但red hat 发布service命令简化启动<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     service httpd start "包起来"<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  c.chkconfig --list httpd 查看httpd的各个run level的情况<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    chkconfig httpd on 开机自动启动<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    chkconfig httpd off 所有的都不自动启动<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    chkconfig httpd --del 删除link文件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    chkconfig httpd --add 添加link文件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    总结:/etc/rc.d/init.d/httpd 是文件的启动或停止脚本<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         /etc/rc.d/rc3.d/S14httpd 是开机让服务运行的脚本<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         到调用/etc/rc.d/init.d/httpd进行动作<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">   自己开发system v script<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   让它开机自己运行<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   1.放到/etc/rc.d/init.d/name<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   2.执行chkconfig name --add  就可以了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.xinetd 动态启动节省资源<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         平时很少用的服务用它<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  立即使用xinetd服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  使用:chkconfig telnet on<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  查看:chkconfig telnet --list<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  管理：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  a.很少用到的服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  b.需要验证身份的服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  c.对服务进行统计，log<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  d.ip重定向<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  配置：/etc/service<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  链接：libwrap.so<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  判断哪些IP可以哪些不可以<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  配置文件独立<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/xinetd.conf 默认<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      instances = 60 管60程序<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      log-type  = syslog log记录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      log_on_success<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      log_on_failure<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      cps        = 25 30<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      一秒内建立25个服务就停止服务30秒防止dos<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/xinetd.d/&lt;service&gt;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       disable = yes  不启用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       flags = resuse 释放<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       socket-type = stream<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       wait = no 可以多人使用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       user = root<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       server = 真正的程序地方<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       log_on_failure += USERID<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    真正启动要重启<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    service xinetd restart<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4./etc/sysconfig/files<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.问题排除<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   1.检查资料<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   2.程序问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   3.操作系统的问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   4.硬件的问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  a.看log<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  b.用指令<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  c.看新文档<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">6. SELinux<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> a.传统的是用user/group/other来控制<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> b.SElinux是用root帐号控制<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 1.每个process or object has security context<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   identity:role:domain/type<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;"> c.sestatus 看启动状态<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> d.启动/etc/sysconfig/selinux<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   1.installation options<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     a.enforcing 强制使用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     b.permissive 提出警告无保护<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     c.disabled<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   2.control option<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     a.target 网络相关的服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     b.strict 保护所有的服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   必须重新开机<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> e.控制<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   1.setenforce=0  停用selinux<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     setenforce=1  启动selinux<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   2.getsebool<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     setsebool -P httpd_disable_trans=1 启动<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   3./etc/selinux/targetd/booleans<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   4.system-onfig-securitylevel   图形<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> f. ps -Z 显示进程的contexts<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    ls -Z 显示档案的contexts<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    chcon 修改file contexts<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    chcon -t user_home_t install.log<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    runcon -t httpd_t cat /etc/passwd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    id -Z<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> g. 排错<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /var/log/messages<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   看right context<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1>unit 3 securing services<br />
+</h1>
+<p><span style="font-family:新宋体;font-size:10pt;">chkconfig --list<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">关闭用不到的服务<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">让服务器更安全<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.本身设置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  named<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  smb<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  http: order allow,deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.通用设置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  tcp_wrappers   /etc/hosts.allow /et<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  只要link到libwrap.so就可以使用tcp_wrappers<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  查看: ldd /usr/sbin/xinetd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  可以用的:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  sendmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  sshd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  xinetd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  gdm<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  portmap<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  vsftpd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">判断流程：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">packet -&gt; iptables -&gt;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  没有link 就看自己的安全机制<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  有link 就看/etc/hosts.allow hosts.deny<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">config :tcp_wrappers<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">daemon_list:client_list[:options]<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">判断流程：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">hosts.allow 符合就allow<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  |<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">hosts.deny  符合就deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  | 没有符合<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">allow<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">daemon name:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.执行名称<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验1.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.vi /etc/hosts.deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. telnet : 192.168.0.100<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   telnetd : 192.168.0.100<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   in.telnetd : 192.168.0.100 这个可以<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. cat /etc/xinetd.d/telnet<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.多个名称<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   in.telnetd, vsftpd : 192.168.0.100<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.可以用all //代表所有服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   ALL : 192.168.0.100<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">高级语法: (当多个网卡的时候用到)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">daemon@网络卡的ip : client_list<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">in.telnetd@192.168.0.144 : 192.168.0.0/255.255.255.0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">in.telnet@10.0.1.144 : 10.0.1.0/255.255.255.0<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">指定client<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.192.168.0.100, 10.0.1.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.192.168.0.0/255.255.255.0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.mail.mydreamy.net .mydreamy.net<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">高级语法<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ALL         所有的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">LOCAL       simple name<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">UNKNOWN     不能解析名称所有的电脑<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">KNOWN        能解析名称所有电脑<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">PAPANOID    正解反解不同的<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">EXCEPT 排除client,deamon<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ALL EXCEPT in.telnetd : 192.168.0.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ALL : 192.168.0. EXCEPT 192.168.0.100<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">options:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.spawn<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  in.telnet : ALL : spawn echo "login attempt from %c to %s" | mail -s waring root 做什么动作<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  %c. client information<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  %s. server informatin<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  in hosts.allow<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  ALL : ALL : deny<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">lab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验1 192.168.0.4禁止访问telnet<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. vi /etc/hosts.deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  in.telnetd: 192.168.0.4<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验2 192.168.1.0禁止ftp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. vi /etc/hosts.deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  vsftpd : 192.168.1.0/255.255.255.0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验3 只允许192.168.0.0 ssh<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. vi /etc/hosts.allow<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  sshd: 192.168.0.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. vi /etc/hosts.deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  sshd: ALL<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">第二种方法：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. vi /etc/hosts.deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> sshd : ALL EXCEPT 192.168.1.<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">由xinte.d服务安全性<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.tcp_wrapppers<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.本身的控制<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  host-based<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  time-based 时间控制<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">Allow with only_form = host_patterrn<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">Deny with no_access = host_pattern<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. vi /etc/xinetd.d/telnet<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  only_from = 192.168.0.0/24<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  no_access = 192.168.0.100<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">表示方式<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. 192.168.1.0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. mail.mydremay.net | .mydreamy.net<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. 192.168.1.0/24 /255.255.255.0<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">允许时间设置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.vi /etc/xinetd.d/telnet<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  access_times = 9:00-18:00<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.service xinetd restart<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">最大连接数量 Dos攻击<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> instances = 60 一共<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> per_source = 5 每ip连接<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1>unit 4 securing data<br />
+</h1>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">需要加密的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.password (telnet ftp pop3都没有加密)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.information (sendmail nfs都没有加密)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.authentication (rsh,rcp)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">资料加密<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.randown numbers<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.hashs 不可逆 : MD2 MD5 MDC2 RMD160 SHA SHA1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.对称: DES 3DES blowflst IDEA CAST5 RC2 RC4 RC5<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.非对称  RSA<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.数字签名<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. /dev/random  加密<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /dev/urandom 解密<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> cat /dev/random<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. /etc/shadow<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. 加密解密 同一个密钥<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. 公钥加密 私钥解密<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   每个人都要有自己公钥和私钥 并且有对方的公钥<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 过程:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 1.用对方的公钥加密<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 2.收到后，用自己的私钥解密<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.第三方的CA 申请<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  taobao有 用户也要有 所有就可以了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  https使用数字签名<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  imaps也使用数字签名<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验 ssl (考试)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.cd /usr/share/ssl/certs<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.ls -l<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.rm dovecot.pem<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.make dovecot.pem<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.ls -l<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6.cp dovecot.pem /usr/share/ssl/private<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7. vi /etc/dovecout.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    protocols = pop3 pop3s imap imaps<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">8.service dovecot restart<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">9.mutt -f {george@example.domain.com}<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">openssh (加密了 安全些)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> sftp代替 ftp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> scp 代替 rcp<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">type:        system v<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">package        openssh(-clent -server)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">deamons:     sshd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">scripts:    sshd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ports:        22<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config:        /etc/ssh/*, $HOME/.ssh 可以使用非对称加密，也可以密码<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验 ssh的非对称加密  ..没有成功<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">好处用别的使用者身份执行指令，不用输入密码<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">user1登录user2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ssh user2@127.0.0.1<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">登录user1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.ssh-keygen -t dsa //产生私密钥<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.cd .ssh/<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.ls -l<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">登录user2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.cat id_dsa<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.cat id_dsa.pub<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6.mail -s "george's key" user@example.domain.com &lt; id_dsa.pub<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.mail 看最后一封邮件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.w user1.key //写到新的文件中<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.mkdir .ssh; chmod 700 .ssh<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.cp user1.key .ssh/authorized_keys<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.cd .ssh<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6.ls -l<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7.chmod 600 authorized_keys<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">用user1登录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.ssh mary@127.0.0.1<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">config openssh<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.vi /etc/ssh/sshd_config<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  protocol 2,1 第1版和第2版 2更安全<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  ListemAddress 双网卡时候设置 192.168.0.147:22<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  PermitRootLogin yes 设置root登录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.service sshd restart<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">好好看做实验册上的SSH实验，考试要考<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">管理key: ssh-add ssh-agent ssh-copy-id<br />
+</span></p>
+<h1>unit 5 authentication services<br />
+</h1>
+<p><span style="font-family:新宋体;font-size:10pt;">1.account information: /etc/passwd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.authentication: /etc/shadow<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">Name Service Switch (NNS)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/nsswitch.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/lib/libnss_service.so<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/nsswitch.conf<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">passwd: files nis ldap<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">getent 取得帐号信息<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">getent passwd | wc -l 一共所有信息<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">getent passwd nis1 显示nis1信息<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">authenticate passwd by lic<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">过程<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.haes login<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.compara hased passwd in NSS<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.一样就登录<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">PAM: pluggable authentication modules<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/lib/security/pam_*.so<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">由/etc/pam.d/login 设置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">那些.so来验证密码<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">libpam 加入或删除<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/lib/security  PAM modules<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/pam.d     PAM configuration<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">在什么情况下怎么来验证用户<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/pam.d 验证类型<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.auth      验证使用者帐号<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.account    确认使用者有效（什么时间可以用)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.password      更改密码<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.session    opens closes 记录下来<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/pam.d 控制标准 control flag<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.required    must pass,一直测试直到全部失败  //只要有失败就失败<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.requisite    失败就停止<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.sufficient    成功就停止<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.optional    结果不影响其他session<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/pam.d/档案格式<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">类型    控制    文件.so<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_stack 模块 多个程序用一个 总控制<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">system-auth 呼叫这个<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_unix 可以呼叫nss-based libnss 四种验证都可以<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">network authentication<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_krb5    kerberos V tickets<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_ldap    ldap biond<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_smb_auth    old smb<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_winbind    smb trough winbind<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">还可以用nis<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">登录控制<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_security 只对root影响<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/security 里面有就可以登录, 避免外部进入<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_nologin (默认不存在)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/nologin  除了root不能登 rhel4<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_listfile 一个允许登录 一个拒绝登录的名单<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">密码安全<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.pam_unix MD5<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.pam_unix shadow 只允许root 可以限制有限期限<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.other pam_krb5<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">密码安全原则<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.password history 使用过的密码记录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  pam_unix remember=N  记录前n个密码<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.password strength<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  pam_cracklib 强制密码安全<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  pam_passwdqc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.failed login monitoring<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  pam_tally 检视登录失败<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">session module<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. pam_limit 限制资源<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  /etc/security/limits.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. pam_console 给特别权限<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  /etc/security/console.perms<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  /etc/security/console.apps 里面<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">su reboot system-config-*<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_rootok<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_timestamp 五分钟验证过直接通过<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam_xauth<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">pam troubleshooting<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.check the system<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /var/log/messages<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /var/log/secuer<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. root 被锁<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 1.用single-user引导<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 2.光碟引导<br />
+</span></p>
+<h1>unit6 iptables<br />
+</h1>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">ip forwarding: router<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">启动：echo "1" &gt; /proc/sys/net/ipv4/ip_fordward<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">两块网卡<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">电脑变成router + filewall<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">routing<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">新增：route command<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">静态路由: /etc/sysconfig/static-routs<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">netfilter 由内核提供 不能停止<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">使用iptables 控制netfilter<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">netfilter 架构(iptables)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.filter (table)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  a.input  (chain) (rule)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  b.output<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  c.forward<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.nat<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  a.prerouting 传给自己或者本机路由 (进来即将路由)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  b.output      从本机出去的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  c.postrouting 本机路由，从本机出去，本机进来 (路由即将出去)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.mangle 改变包的内容(eg.修改ttl)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  a.prerouting<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  b.output<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">流程<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">in-&gt;prerouting:nat|mangel-&gt;input:filter-&gt;port-&gt;来源主机output:filter:nat:mangle-&gt;postrouting:nat-&gt;out<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             -&gt;forward:filter-&gt;postrouting:nat-&gt;out<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">rule matching<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">找到符合就停止比较,如果没有找到符合的就执行policy:accept<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">rule targets:封包的动作<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 1.DROP<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 2.ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 3.REJECT 退回发出的主机<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 4.LOG 记录到log中 不处理 最好多进行一个rule<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">eg. iptables -t filter -A(append) INPUT -s(source) 192.168.0.0/24 -d(destination) 127.0.0.1 -j(jump) DROP<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">basic paramaters<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">man iptables<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/chain<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-A --append  (rule)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-D --delete<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-I --insert 可以指定插入位置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-R --replace<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-L --list<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-F --flush 清空指定chain所有的rule 没有的话就清除table中的所有rule<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">其他的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-Z --zero       把已经拦截的数量归零<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-N --new-chain      增加一个chain<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-X --delete-chain 删除一个chain<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-P --policy       修改policy<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">考虑因素：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.限制所有，需要就开哪些 这样做比较好<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.禁止特定的，做法不严谨<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.iptables -P INPUT DROP<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.iptables -A INPUT -j DROP<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">也会过滤lookupback 使x windows启动失败<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">存在memory里 reboot就没有了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">所以写入/etc/sysconfig/iptables自动加载<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置文件在/etc/sysconfig/iptables.conf<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">协议 来源/目的 进的网卡/出的网卡<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">man iptables /PARAMETERS<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-p --protocol tcp udp icmp all /etc/protocols 都可以 默认是all<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-s --source<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-d --destination 域名/ip<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-j --jump 怎么处理<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-i --in-interface eth+ 表示所有 没有加表示所有<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   只过滤 input forward prerouting<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-o --out-interface<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   只过滤 forward output postrouting<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">tcp 都可以设置什么<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--sport: --source-port         服务名称|number port:port 一个范围 0: 表示0~65535<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--dport: --destination-port<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-m state --state NEW ESTABLISHED RELATED INVAILD<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">tcp三次握手<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.syn<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.syn/ack<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.ack<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">攻击方法：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">狂发发出syn 丢掉syn/ack<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">禁用NEW 防止这种攻击<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">udp 都可以设置什么<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--sport<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--dport<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">icmp 都可以设置什么<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--icmp-type 选择过滤icmp的类型<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -p icmp -h 查找类型显示<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">常用parameters<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-p (加!表示除了这个所有的）<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-s 192.168.0.1/24 192..168.0.1/255.255.255.0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-d<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-i<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-o<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--sport service name | port | port range<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--dport<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">owner (only out-put)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-m --match owner<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--uid-owner 过滤指定userid产生封包<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--gid-owner 过滤指定groupid产生封包<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--pid-owner 指定process id<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--sid-owner 指定session id<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">--cmd-owner 指定command<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">格式 iptables tables command chain parameter target<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">主机怎么传递封包 保护自己<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.最简单 所有封包可以出去 不能进来(禁止所有主动)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  output policy -&gt; accept<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  intput policy -&gt; drop<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> a.iptables -L 查看所有rule<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   iptables -F 清除所有rule<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> b.iptables -P OUTPUT ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> c.iptables -P INTPUT DROP<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> d.iptables -L<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  但三次握手syn/ack会失败<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  解决：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">(RHEL4)过滤syn封包就可以--tcp-flags<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  (RHEL5)过滤掉syn -m state --state NEW<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> e.iptables -P INPUT ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> f.iptables -L<br />
+</span></p>
+<p style="margin-left:21pt;"><span style="font-family:新宋体;font-size:10pt;"> g.(RHEL4)iptables -A INPUT -p tcp --tcp-flags SYN,ACK SYN -j DROP (--syn代替多RST) (SYN,ACK/SYN表示允许SYN/ACK封包，禁止SYN封包）<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   (RHEL5)-A INPUT -p tcp -m state --state NEW -j DROP<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> h.iptable -L<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. 网络其他主机无法ping<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   iptables -A INPUT -s ! 192.168.0.0/24 -p icmp -j DROP<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. root产生封包无法到网上<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   iptables -A OUTPUT -s -d ! 192.168.0.0/24 -m owner --uid-owner 0 -j DROP<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">man iptables /state 根据接连状态过滤<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-m state --state<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">INVALID     所有未知状态<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ESTABLISHED    三次握手之后<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">NEW        新建立的网络<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">RELATED        三次握手之中<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">20 port command<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">21 port data<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.防火墙禁止所有SYN状态包<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  iptables -A INPUT -m state --state NEW -j DROP<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">NAT: network address translation<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    内网转换外网ip<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    prerouting  转换destination ip (DNAT)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    postrouting 转换source     ip (SNAT)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   1. iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE 把192.168.0.0/24 ip 转换成 eth0上的ip(动态ip)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    masquerade 换装<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   2. iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j SNAT --to-source 10.0.1.254<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    解决IP不够 DNAT (端口印射)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   3. iptables -t nat -A PREROUTING -d www.example.com -p tcp -dport 80 -j DNAT --to-dest 192.168.0.10<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">特性： 1.iptables不是服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       2.但可以service iptables stauts 管理<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       3.rule存在memory中  存在/etc/sysconfig/iptables里面<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">111上设置iptables<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A INPUT -p tcp --dport 3306 -s 202.119.199.113/32  -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A INPUT -p tcp --dport 80  -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A INPUT -p tcp --dport 22  -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A INPUT -p icmp -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A INPUT -p icmp -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A INPUT -p tcp --tcp-flags SYN,ACK SYN -j DROP<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A INPUT -p udp  -j DROP<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A OUTPUT  --sport 22  -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A OUTPUT  --sport 80  -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A OUTPUT  --dport 1433 -d 202.119.199.113/32 -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A OUTPUT  --dport 80 -s jyzd.cumt.edu.cn -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A OUTPUT  --dport 21 -s jyzd.cumt.edu.cn -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A OUTPUT  --dport 22 -s jyzd.cumt.edu.cn -j ACCEPT<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">iptables -A OUTPUT  -s jyzd.cumt.edu.cn -j DROP<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">　　允许icmp包通过,也就是允许ping,<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">　　[root@tp ~]# iptables -A OUTPUT -p icmp -j ACCEPT (OUTPUT设置成DROP的话)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">　　[root@tp ~]# iptables -A INPUT -p icmp -j ACCEPT (INPUT设置成DROP的话)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">　　允许loopback!(不然会导致DNS无法正常关闭等问题)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">　　IPTABLES -A INPUT -i lo -p all -j ACCEPT (如果是INPUT DROP)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">　　IPTABLES -A OUTPUT -o lo -p all -j ACCEPT(如果是OUTPUT DROP)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">在服务器上配置iptables的时候，最好设置个任务，过10分钟自动清除iptables，要不然设置错了，一次就完了，通常先允许SSH，其他的再设置<br />
+</span></p>
+<h1>unit 7 organzing network system<br />
+</h1>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">(DNS) Domain Name System<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">forward lookup 正向 名字-》ip<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">reverse lookup 反响 ip -&gt; 名字<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">domain: DNS维护的范围<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">zones: 资料库<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">delegation: 委派别的服务器指派<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">两种:master: 存放zones 修改zones<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">              1.正向解析文档<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             2.反向解析文档<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             3.named.ca 路由<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             4.localhost.zone 本机正向解析文档<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             5.named.local 本机反向解析文档<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     slave:  备份用 备份1.2 dns zone transfer<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             1.named.ca<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             2.localhost.zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             3.named.local<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.查询zone 和 cache<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. root server 或者 提起dns<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">BIND： BERKELEY INTERNET NAME DOMAIN<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. BIND 9<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.chroot 使用/var/named/chroot/ root的根路径<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">type: system v<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">pachages: bind bind-utils bind-chroot caching-nameserver<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">daemons:  named rndc检查安全<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">port: 53 953(rndc)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">configs: /var/named/chroot<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         /etc/named.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         /var/named/*  存放zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         /etc/rndc.*<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">related: openssl<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">bind-chroot<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> config : /etc/sysconfig/named (实验)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    # 停用 ROOTDIR=/var/named/chroot<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">bind<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> config: /var/named/chroot/etc/named.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 定义zones, options, acl etc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 可以用c c++ shell 编辑它<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">global options<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> options {<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      directory     "/var/named"; zones files存放地方 /var/named/chroot/var/named<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      forwarders     {10.0.1.254;}; 转向查询<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         allow-query    {192.168.2/24;}; 只允许此网段查询<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         aloow-transfer {192.168.2/24;}; 只复制此网段<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         }<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">acl<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">acl "mylist" {192.168.0/24;    //宏定义<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">              192.168.1/24;};<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">rndc 不是服务 使用被named服务器调用<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">master slave zones<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">zone "example.com" {<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     type  master;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     file  "example.com.zone"; //chroot directory<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     };<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">zone "kernel.org" {<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      type slave;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      master {192.168.0.254;};<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      file   "slaves/kernel.org.zones";<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      };<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">文件文档包含zone name<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">反向解析<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">root<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">arpa<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">in-addr<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">209<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">132<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">177<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">作用：1.容易显示连接对象<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      2.安全<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">zone "1.0.10.in-addr.arpa" {<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      type     slave;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      master      {10.0.1.254;};<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      file     "slaves/10.0.1.zone"<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     };<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">root zone and loopback zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">zone "."<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> {<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  type hint;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  file "named.ca";<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> };<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">zone "0.0.127.in-addr-arpa"<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   {<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    type master;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    file "named.local";<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   };<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">zone files<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">begin with: $TTL<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">SOA<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">Resource records (RR) 的形式储存zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">[domain] [ttl] [class] &lt;type&gt; &lt;rdata&gt;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">                IN     SOA MX A  记录的内容<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">SOA : start of authority<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">每一个zone file都有soa 记录由那台DNS记录和管理的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">修改完 serial number要加一<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">@IN SOA example.com. root.example.com. (<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    2001101100; serial number<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    10800;      refresh<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    3600;    retry query<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    604800;     expire<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    0;          negative TTL<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   )<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">NS : Name server 定义domain由那个DNS提供服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> example.com. IN NS ns.example.com.<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">A        record   //hostname to ip<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> mail //自动加mail.example.com.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> ns.example.com. IN A 192.168.0.2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">CNAME      record<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> www IN CNAME ns1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> dns IN CNAME ns.example.com.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">PTR      record  //ip to hostname<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 3.0 //自动168.192.in-addr.arpa.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 3.0 IN PTR ns.example.com.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">MX       record        mail server for a domain<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> example.com. IN MX 5 mail.example.com.  //5代表优先权<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">新增一个dns zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">forward lookup zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> a.soa<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> b.ns<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> c.a<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">reverse<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> a.soa<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> b.ns<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> c.ptr<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">example.com.zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">eg. /var/named/chroot/var/named/<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> $TTL 86400<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @ //表示example.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @ IN SOA example.com. root.example.com.(<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">        200507310;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">           10800;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          3600;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         604800;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          0;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">                    )<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @    IN    NS    ns.example.com.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> ns    IN    A    192.168.1.3<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">chown named:named example.com.zone<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">eg.192.168.1.zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  $TTL 86400<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @ //表示example.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @ IN SOA example.com. root.example.com.(<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">        200507310;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">           10800;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          3600;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         604800;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          0;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">                    )<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @    IN    NS    ns.example.com.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 3    IN      PTR    ns.example.com.<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">chown chown named:named 192.168.1.zone<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">Round Robin 负载平衡<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  www 0 IN A 192.168.2.101  //0 TTL<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  www 0 IN A 192.168.2.102<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  www 0 IN A 192.168.2.103<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">delegating subdomains 委派<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">sub.example.com.     IN     NS     DNS1.sub.example.com.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">DNS1.sub.example.com.   IN      A    192.168.1.3<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">检查dns语法错误 named无法启动<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.named-checkconf 检查/etc/named.conf 无回应是正确的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.named-checkzone 检查dns zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  named-checkzone example.com /var/named/chroot/var/named/example.com/zone<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">caching only 只有named.ca 文档 只转发其他的dns 代理DNS<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 1.安装caching-nameserver RPM<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">bind utilities 测试工具<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.host<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  host ns.redhat.com 查询对应ip<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  host 192.168.1.1   查询对应domain<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  host -a ns.redhat.com | grep ^[^\;]显示所有<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.dig 查询特定的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  dig @ns.redhat.com redhat.com mx | grep ^[^\;]<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.nslookup 查询name server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  1.nslookup 互动模式<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    68.142.226.4<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    redhat.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    set type=mx<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    redhat.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    exit<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  2.nslookup yahoo.com ns.redhat.com<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">LABS 架设 3个实验<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.caching-only name server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.slave name server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.master name server<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. rpm -qa | grep caching<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. rpm -qa | grep bind<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. vi /etc/hosts<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  两笔记录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  127.0.0.1      localhost.localdomain     localhost<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  192.168.1.123  ns.example.com     ns<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. vi /etc/resolv.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  nameserver 192.168.0.144<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5. host redhat.com 测试<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6. cd /var/named/chroot<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7. vi etc/name.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   forwarder {192.168.0.144;};<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   forward only;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">8. service named start<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">9. host redhat.com 测试<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. cd /var/named/chroot/<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. vi etc/named.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   //forwarders {192.168.0.144;};<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   //forward only;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   建立两个slave zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   zone "domain.com" {<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      type slave;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      masters {192.168.0.144;};<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      file   "slaves/domain.com.zone";<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      };<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   zone "0.168.192.in-addr.arpa" {<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      type     slave;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      master      {192.168.0.144;};<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      file     "slaves/192.168.0.zone"<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      };<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. service name restart<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. ls -l var/named/slaves<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   里面文件从master name server 复制过来的<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. cd /var/named/chroot<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. vi etc/name.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   建立两个mater zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  zone "example.com"<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     {<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     type  master;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     file  "example.com.zone"; //chroot directory<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     };<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   zone "0.168.192.in-addr.arpa"<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      {<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      type     master;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      file     "slaves/192.168.0.zone";<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      };<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. vi var/named/example.com.zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    $TTL 86400<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @ //表示example.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @ IN SOA ns.example.com. root.ns.example.com.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">        (<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         200507310;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">            10800;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">           3600;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          604800;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">           0;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">        )<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @    IN    NS    ns.example.com.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> ns    IN    A    192.168.1.3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. vi var/salve/192.168.0.zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     $TTL 86400<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @ //表示example.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @ IN SOA ns.example.com. root.ns.example.com.(<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">        200507310;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">           10800;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          3600;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         604800;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          0;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">                    )<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> @    IN    NS    ns.example.com.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 3    IN      PTR    ns.example.com.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5. chown<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6.named-checkconf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7.named-checkzone example.com    /var/named/chroot/var/named/example.com.zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  named-checkzone 1.168.192.in-addr-arpa  /var/named/chroot/var/named/192.168.1.zone<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">8. service named restart<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">9. host ns.example.com 测试<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">advanced bind feature<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">结合dhcp DDNS动态更新dns<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">DHCP 服务器 dhcpd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ports 67(bootps), 68(bootpc)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config: /etc/dhcpd.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">        /var/lib/dhcp/dhcpd.leases<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">relate  dhclient<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/usr/share/doc/dhcp-&lt;version&gt;/dhcpd.conf.sample<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. yum install dhcp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. cp sample /etc/dhcp.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. vi /etc/dhcp.conf<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1>unit8 http<br />
+</h1>
+<p><span style="font-family:新宋体;font-size:10pt;">package:http http-devel httpd-manual mod-ssl<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config: /etc/httpd/conf/httpd.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">        /etc/httpd/*<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     /var/www/*<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">related: system-config-httpd mod_ssl<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">log: /var/log/httpd<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">module: /etc/httpd/conf.d/*<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">documtroot: /var/www/html<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">config:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">a.spare servers<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  1.Minspareservers<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  2.Max....<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  3.Start...<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">b.HostnameLookups off 记录client端的ip<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">c.virtual hosts<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">d.user/group apache apache<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">namespace configuration<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.directoryIndex<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.mime type<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   AddType aplication/x-httpd-php .phtml<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   AddType text/html .htm<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3./$home/public_html每个使用者的默认目录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   httpd.conf //修改他以前要别分<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   #UserDir disable //要重启apache<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   http://127.0.0.1/~user1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   r可以列目录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   x可以进入目录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   $home o+x<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">virual host<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">NameVirtualHost 本地ip<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">&lt;VirtualHost 本地ip&gt;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> ServerName<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> DocumentRoot<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">&lt;/&gt;<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">a.第一种控制方法 （控制访问)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">apache access configuration<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">Order allow,deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">Allow from all<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">没有设的话是全部<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">b.第二种控制方法 (控制目录)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">.htaccess 浏览要输入帐号密码<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.httpd.conf中设置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">&lt;Directory "/var/www/html/tips"&gt;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">AllowOverride authconfig<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">&lt;/Directory&gt;<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.vi /var/www/html/.htaccess<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">AuthName     "sdfsdF"<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">AuthType     basic<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">AuthUserFile    /var/www/html/tips/wwwpasswd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">require       valid-user<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.htpasswd -c wwwpasswd user10<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  htpasswd wwwpasswd user11<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.restart<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">CGI: common gateway interface<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">ScriptAlias<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mod_perl 加快速度<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">重要的modules<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.mod_perl<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.mod_php<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.mod_speling  检查url<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">squid: Proxy server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">会cache网页 比较节省资源<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">port:3128 改变到8080<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">默认只接受loopback interface<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">type:         system v<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">packages:    squid<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">daemons:    squid<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">script:        squid<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">port:        3128<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">configuration:    /etc/squid/squid.conf<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.修改3128<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.修改127.0.0.1/255.255.255.255<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.service squid restart<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.chkconfig squid on<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1>unit 9 network file sharing services<br />
+</h1>
+<p><span style="font-family:新宋体;font-size:10pt;">nfs<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/exports设置分享的目录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /tmp  *(ro,sync)  (*任何电脑 ro:readonly, synchronize) 里面不能加空格<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">exportfs -r更新<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">用mount 就可以分享了 rpc: remote procedure call 使用portmap的服务 rpcinfo -o 看portmap<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">type:        system v<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">package:  nfs-utils portmap nfs-lock兼容低版本<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         1.vi /etc/exports<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         2.rpcinfo -p<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         3.service nfs restart<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         4.rpcinfo -p<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">   过程       client              server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">daemons:  rpc.mountd               1. portmapper<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">                           2. mountd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">            rpciod &lt;read/write&gt;          nfs<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">         nlockmgr &lt;data 一致性&gt;        nlockmgr<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     status  &lt;connnection status&gt;   status<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">port:         portmap (111)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">conf:        /etc/exports<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">related :    portmap<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/exports 分享目录清单<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/tmp   *(ro, sync):<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/data  *.example.com(ro, sync)  server1.redhat.com(rw, sync)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/data1 192.168.0.0/255.255.255.0(sync) 没有设置ro 就是ro<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">eg. 1.showmount -e 192.168.0.147 查看分享目录 //client<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    2.exprotfs -r 更新分享清单  //server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    3.mount 192.168.0.147(servier):/tmp /mnt/nfs<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     在client的root建立的文件uid 很大 区别client端和server端的root<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     no_root_squash 取消这个特性<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">server:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. useradd -u 1000 nfs1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   useradd -u 2000 nfs2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. /etc/exports<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /nfsdata 192.168.0.0/255.255.255.0(rw, sync)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. mkdir /nfsdata<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. chmod 1777 /nfsdata  1 sticky 只有建立的使用者才可以删除文件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5. exportfs -r<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   service nfs restart<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">client:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. useradd -u 2000 nfs1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   useradd -u 1000 nfs2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   useradd -u 3000 nfs3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   passwd nfs1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   passwd nfs2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   passwd nfs3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. umount /mnt/nfs<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. mount 192.168.0.147:/nfsdata /mnt/nfs<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. su - nfs1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5. touch /mnt/nfs/nfs1.file<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6. su - nfs2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7. touch /mnt/nfs/nfs2.file<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">8. su - nfs3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">9. touch /mnt/nfs/nfs3.file<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">server:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. ls -l /nfsdata<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 看效果<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">说明，写文件的时候只写入uid gid<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 所有要一致比较好<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">自动挂载 /etc/fstab<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">soft : report error<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">hard: 不断尝试连接 default<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">intr: 允许中断<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">nointr: 不允许中断 deault<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">timeo: time out<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">192.168.0.3:/nfsdata     /mnt/nfs     nfs      ro,soft,intr,timeo=1 0 0<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/rc.d/init.d/netfs 开机挂载分享目录<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">autofs<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1>unit 10 NIS （network information service)<br />
+</h1>
+<p><span style="font-family:新宋体;font-size:10pt;">  身份认证 多台服务器<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">master server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">slave server<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">master复制-&gt;slave server 动作叫push<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">NIS Domain 不安全 可以client可以看server 密码<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">type:         system v<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">packages:    ypserv (yellow pages)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">daemons:    ypserv, rpc.yppasswdd, rpc.ypxfrd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ports:         动态端口portmap<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config:        /etc/sysconfig/network<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">        /var/yp/*  (帐号数据库)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">        /etc/ypserv.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">sripts:        ypserv,yppasswdd,ypxfrd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">related:    portmap,ypbind,yp-tools<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">过程<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> client     server<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">ypbind  -&gt;    portmapper<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">(port)  &lt;- 动态<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ypbind  &lt;-&gt;     ypserv<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ypasswd &lt;-&gt;    yppasswd<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置实验<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. rpm -qa | grep protmap<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. rpm -qa | grep ypserv<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. /etc/sysconfig/network    //使用nisdomainname也行<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   NISDOMAIN=your-domain-name<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. 限制/var/yp/securenets中可以使用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   vi /var/yp/securenets 允许的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   255.255.255.255 127.0.0.1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   255.255.255.0   192.168.0.0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5. service ypserv start<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6. chkconfig ypserv on<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">7. useradd tom (server)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">8. passwd tom<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置master server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. vi /var/yp/Makefile 编辑转换nis databases<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. find<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    all: passwd group hosts<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    nopush=true 只有一台的时候<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    MINUID=500<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    MINGID=500  转移500后面的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3./usr/lib/yp/ypinit -m<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.cat /var/yp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  里面产生对应的NISDOMAIN<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.service yppasswdd start<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6.chkconfig yppasswdd on<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置slave server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. /var/yp/ypservers //master server 上的slave档案<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">结合在//master server 自动添加了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">net host to add: slave server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">service ypxfrd start 复制用的服务<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. //slave NISDOMAIN=yourdomain<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. service ypserv start<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. service portmap start<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5. service ypxfrd start<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6. /usr/lib/ypinit -s ip(master) //client push 过来<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">有更新 就要更新 再push<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">cd /var/yp; make<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7.ls -l /var/yp<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">登录过程<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.local<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.nis server<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置client<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. install ypbind portmap<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. authconfig<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/sysconfig/network  nisdomain<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     nisdomain rhce<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/yp.conf           nis server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     domain RHCE server 192.168.0.144<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/nssswitch.conf       use nis<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     passwd: files nis<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     shadow: files nis<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     group:  files nis<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/pam.d/system-auth  shadown NIS<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     nis<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">解决家目录问题：整合nfs<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">//server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. vi /etc/exports<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  /home 192.168.0.0/255.255.255.0(rw,sync)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. exportfs -r<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. service nfs start<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">//client<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">必须安装ypbind and portmap<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.umount /home<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.mount nfs server:/home /home<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">缺点：client过多,nis server负担很大<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">解决:auto-mount<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">//server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.mkdir /nishome<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.ls -ld /nishome<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.chmod 1777 /nishome<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.useradd -u 5001 -d /nishome/nis1 nis1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  useradd -u 5002 -d /nishome/nis2 nis2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  useradd -u 5003 -d /nishome/nis3 nis3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  passwd nis1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  passwd nis2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  passwd nis3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.vi /etc/exports<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /nishome *(rw,sync)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6.exportfs -r<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7.vi /var/yp/Makefile<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  MINUID=5001<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  MINGID=5001<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">8.cd /var/yp; make<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">//client<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.authconfig<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.domain<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.vi /etc/auto.master<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  /nishome    /etc/auto.nis --timeout=60<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.cp /etc/auto.misc /etc/auto.nis<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.vi /etc/auto.nis<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  nis1    -rw,soft,intr    192.168.0.3:/nishome/nis1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  nis2    -rw,soft,intr    192.168.0.3:/nishome/nis2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  nis3    -rw,soft,intr    192.168.0.3:/nishome/nis3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">缺点：nis用户太多就行数太多<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">解决:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">*    -rw,soft,intr    192.168.0.3:/nishome/&amp;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7.mkdir /nishome<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">8.service autofs restart<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">NIS troubleshooting<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. /var/log<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. firewall<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. rpcinfo -p hostname<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   ypserv<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   yppasswdd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. ypwhich 查看连接到哪nis server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5. ypcat  可以看nis data<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   ypcat passwd 可以查看passwd档案<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   getent hosts  看nis data还看nis server上的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   getent passwd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">// nis 太不安全了<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1>unit 11 file transfer protocaol (ftp)<br />
+</h1>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">vsftpd<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">type:         systemv<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">package:    vsftpd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">scripts:    vsftpd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ports:        21(ftp),20(ftp-data)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config:        /etc/vsftpd/vsftpd.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">            /etc/vsftpd.ftpusers 哪些使用者可以连接到这里<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">log:        /var/log/vsftpd.log<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">默认<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">分为两种<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.anonymous<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> a.ftp anonymous 两个都可以<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> b.使用chroot 进入/var/ftp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> c.只能下载<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.user access<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> a.本机用户<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> b.可以上传也可以下载<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">config: /etc/vsftpd/vsftpd.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">anonymouns_enable=YES<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">anon_upload_enable=YES<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chown_uploads=YES 自动将ftp和anonymous的uid改成其他的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chown_username=whoever 文件的owner编程whoere<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">ftpd_banner=<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">.message<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">chroot_list_enable=YES 一般使用者是否启动chroot<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chroot_list_file=/etc/vsftpd.chroot_list 哪些使用者启动<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">userlist_enable=YES 设置userlist<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验1.切换目录出现信息<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.在目录中写.message<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.ftp 127.0.0.1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验2.显示banner<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.ftpd_banner=<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.ftp 127.0.0.1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验3.不让tom登录,允许root<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 1.vi /etc/vsftpd.ftpusers  不允许列表<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 2.tom<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 3.#root<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 4.vi /etc/vsftpd.user_list (userlist_enable=YES)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 5.#root<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 6.ftp 127.0.0.1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> 7.vi /etc/vsftpd/vsftpd.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    userlist_deny=NO  只允许userlist的访问<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    userlist_deny=YES userlist里面的不允许(默认)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    service vsftpd restart<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验4.限制电脑<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  1.vi /etc/hosts.deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   vsftpd: 192.168.1.0/255.255.255.0 不能使用/24 不能访问<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          192.168.1.1 限制一个ip<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验5. 实践ftp 匿名上传ftp 一个固定文档里面<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   1.mkidr /var/ftp/incoming<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   2.chown root.ftp /var/var/ftp/inconing<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   3.chmod 730 /var/ftp/incomming<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   4.ls -ld /var/ftp/incoming<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   5 vi /etc/vsftpd/vsftpd.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    anonymouns_enable=YES<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    anon_upload_enable=YES<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    chown_uploads=YES<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    chown_username=daemon<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       anon_umask=077 rw- --- ---  不允许上传同一个文件名<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   6. service vsftpd restart<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   7. touch ftpfile<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   8. ftp 127.0.0.1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   9. cd incoming<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   10.put ftpfile<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   11.put ftpfile第二次<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   12.ls -l /var/ftp/incoming 本地<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     看<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   13. ls 无法浏览 (chmod 730 /var/ftp/incomming)<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1>unit 12 samba services<br />
+</h1>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">Server Message Block = SMB<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">提供服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.验证和授权<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.分享档案和print<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.提供netbios解析<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.资源浏览<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">deamons:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. smbd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   提供1.2服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. nmbd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   提供3.4服务<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">SMB  必须是一个网段的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">type:         system v<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">packages:     samba samba-common samba-client testpram<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">daemons:     smbd, nmbd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">script:         smb<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ports:         445<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config:         /etc/samba/smb.conf, /etc/samba/*<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">related:     system-config-samba, samba-swat(wen)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">log:         /var/log/samba/*<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    <br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">哪些方法设置服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. /etc/samba/smb.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. system-config-samba           //别的版本不支持<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. samba-swat (port 901) 功能更多<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  rpm -ivh samba-swat*<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  chkconfig swat on<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  浏览器:http://127.0.0.1:901<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">smb.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">[]区别不同sections<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">[global]   全局<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">[homes]    家目录的分享<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">[printers] 打印机<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">[gloabl]<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">workgroup = 加入那个群组<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">servver string = 显示电脑名称<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">log file =<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">max log size =<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">security = 身份验证方式<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">[homes]<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">browseable = no 看不到分享<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">writables = yes<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">[printers]<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">path = /var/spool/samba<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">browseable =no<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">printable = yes<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">设置属性                 默认<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">public        是否可以使用guest      no<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">browsable     是否可以看到        yes<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">writables     是否可以写        no<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">printables    是否分享打印机        no<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">group        进来使用者变group    <br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">如何分享打印机<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. /etc/cups/printers.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. vi /etc/samba/smb.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  [printers] 复制这个<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">#  [printera]<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">#    comment = 注解<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">#    printer = printera<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">#    valid users = 哪些使用者可以使用 //不设置所有人可以使用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">#    path = /var/spool/printera<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">#    public = no 这四个<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">#    printables = yes<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. service smb restart<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">实验分享<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. workgroups = RHCE<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2  share name = myshare<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3  not writables<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. not allow anonymous access<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5. test tom<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. vi /etc/samba/smb.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  workgroup =RHCE<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  最后 复制myshare<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  ;删掉<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  [myshare]<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   path = /smbdata<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   public = no  //<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   writable = no  // 可以不设默认<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   printables = no 不是分享打印机<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. mkdir /smbdata<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. touch /smbdata/hello.tom<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. useradd tom<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5. echo 1234 | passwd --stdin tom<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6. service smb restart<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7. 在windows里面登录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   无法登录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">解决：<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">身份验证<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">sercurity = &lt;method&gt;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.vi /etc/samba/smb.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  security = user<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  user: 本机上的 (默认) 是/etc/samba/smbpasswd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  share: 不进行验证<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  domain: 交给pdc bdc //windows<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  ads: 交给ad<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">设置密码 必须是本地帐号<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">winbinde 整合linux ad<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. tail /etc/passwd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. cat /etc/samba/smbpasswd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. smbpasswd -a tom<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. cat /etc/samba/smbpasswd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   跟本地不同<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   1./etc/passwd 首先<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   2./etc/samba/smbpasswd 整合windows<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.smbpasswd -a tom1  /tom1不存在 错误<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">默认分享<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. myshare<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. home<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. printer<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.在myshare 里新建 错误<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.home里  可以<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">介绍smbpasswd参数<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">修改密码 smbpasswd tom<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">停用     smbpasswd -d nis3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">启动     smbpasswd -e nis3<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">删除<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. cat /etc/samba/smbpasswd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. smbpasswd -x nis3 删除<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. cat /etc/samba/smbpasswd<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">smbclient工具 跟ftp一样<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">smbclient //home/share<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">cd directory<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">get file<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. vi /etc/samba/smb.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  [tmp] 注销掉<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. service smb restrt<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. smbclient //192.168.0.3/tmp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   a.ls<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   b get ftpfile<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   c.quit<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">查看有哪些分享资源<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">smbclient -L hostname<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">smbclient -L hostname -U tom%1234 //有密码<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">nmblookup 名称与哪个ip对应<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">nmblookup -U WINS Server -R name<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">nmblookuup -U 192.168.0.185 -R servera<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">192.168.0.185 servera<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">nmblookup \*<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">smbmount 直接挂<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mount //server/share /mnt/smb -o username=USER%PASSWD<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">挂载到/etc/fstab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. mkdir /mnt/smb<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. vi /etc/fstab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">//192.168.0.147/myshare        /mnt/smb    smbfs    defaults,username=tom%1234  0 0<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1>unit 13 mail<br />
+</h1>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">sendmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.支持多种网络协议<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.伪装发信人<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.错误后自动再发<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">考虑安全<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.无法反解退回信件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.控制用户.机器访问<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">反垃圾"anti-spam"<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.不帮别人转发relay<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.控制用户.机器访问 access databases<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.check email headers<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.spamassassin邮件过滤器<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">寄信流程<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">Mail User Agent(MUA) 寄信客户端<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">Mail Transport Agent(MTA) sendmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">Mail Delivery Agent(MDA) 送给各个用户，过滤信件 procmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">                           relay<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">流程MUA -&gt; port 25 (sendmail)MTA 判断@后hostname -&gt; MTA -&gt; MDA -&gt; recive<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">MTA /var/spool/mqueue (mail queue)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">MDA /var/spool/mail   (mail box)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">relay<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">MTA -&gt; DNS server 找到对应mail server的ip (MX) -&gt; 寄到relay对应ip的mail servier port 25<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">server operations<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   MSP:mail submission program<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">MUA -&gt; MTA query MX -&gt; open 25 -&gt; 两端email servier 开启smtp -&gt; 如不是本机继续relay<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">sendmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">type:          system v<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">packe:          sendmail sendmail-cf sendmail-doc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">deamons:      sendmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">script:      sendmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ports:         25<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config:         /etc/mail/sendmail.cf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">              /etc/mail/submit.cf (不修改)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             /etc/mail.sendmail.mc （一般修改这个，修改完重启）<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             /etc/aliases<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             /etc/mail/*<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">related:        promail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">logfile       /var/log/maillog<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">@ 设置 search domain.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mail server DNS要设置正确<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.sendmail 默认只允许本地连接25  不设这个邮件客户端无法连接，只能在mail server上发 太不方便了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">解决<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">vi /etc/mail/sendmail.cf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/127.0.0.1  addr=127.0.0.1 改成0.0.0.0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">restart<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">netstat<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-t tcp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-u udp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-p program<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-l listen<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-n ip<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">telnet example.domain.com<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">HELLO eample<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">MAIL From: user10@sdfsdf.domain.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">RCPT To: user15@fsdf.domain.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">DATA<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">. 接续<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">quit<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">退出ctrl + ]<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. /etc/aliases 群寄<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mis: grorge, mary, tom<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">newaliases 重新定义成资料库<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mis@example.domain.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. /etc/mail/local-host-names 本地网域名称不relay到其他的mail server<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">example.domain.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">restart sendmail<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">m4设置sendmail-cf            m4<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config /etc/mail/sendmail.mc -&gt; sendmail.cf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   必须安装sendmail-cf m4 两个package<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">OSTYPE('linux')<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">define (<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">FEATURE 重要作用的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">DAEMON_OPTIONS 设置port<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">FEATUEE ('accept_unresolvable_domains')dnl<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">m4 /etc/mail/sendmail.mc &gt; /etc/mail/sendmail.cf<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">sendmail client config<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">mail gateway<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mail client<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">//如果有多个mail服务器的话<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.MAIL_HUB:mail client define('MAIL_HUB', 'MAILGATEWAY')dnl<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  SMART_HOST:          define('SMART_HOST', 'MAILGATEWAY')dnl<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">随便自己设置<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">mail gateway要伪装client<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.MASQUERADE_AS('要伪装的名称')<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> FEATURE('allmasquerade')dnl<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> FEATURE('masquerade_envelope')dnl<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">FEATURE('dnsbl') 使用bloackhole<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">FEATURE('relay_based_on_MX')<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">6./etc/mail/virusertable<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">用户别名 supply@abc.com        shopper<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     support@xyz.org    payer<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7./etc/mail/access接受拒绝信件 /设置RELAY的信件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">OK     accepts mail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">RELAY     accept mail for relaying  不设relay 其他客户端无法将信件relay到其他mail server 只有本机才可以<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">REJECT     rejects the sender<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">DISCARD 撤销<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">默认只relay在本服务器上寄出的信件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">编辑后使用make指令 在/etc/mail中执行<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">重新启动也可以<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">blacklisting<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">FEATURE('blacklist_recipients')<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">Debugging Sendmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.看/etc/mail/local-host-names 本地信件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.mail -v user 显示 ctrl + d 掠过<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.mailq     显示queue<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  mailq -Ac 显示clientqueue<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.tail -f /var/log/maillog看日记<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">修改sendmail 127.0.0.1 这行配置 只是判断哪些IP的客户端可以登录··access里的配置是哪些IP的客户端可以发邮件<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">pop3 server port:110<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">下载邮件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">package dovecot<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">vi /etc/dovecot.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">修改protocols = pop3 pop3s<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">service dovecot restart<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">pop3 阅读信件的时候下载到用户的电脑上<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">imap 就不下载到用户的电脑上<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">用mozilla-mail查看<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">rpm -qa | grep mozilla-mail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mozilla &amp; 背景执行<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">alternatives 使用并外一个服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ls -l /etc/alternatives/查看<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">alternatives --display mta<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">alternatives --config mta  选择可以使用的服务<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">system-switch-mail 图形界面<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">rpm -ivh system-switch-mail-*<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">postfix == sendmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">优点<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.相容<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.速度快 负荷小<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.更容易管理<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.更安全<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">type:         system-v<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">packages:    postfix<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">daemons:    master, nqmgr, smtpd, pickup<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">script:        postfix<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ports:        25<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config:        /etc/postfix/main.cf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">related:    procmail<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.install<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.alternatives --config mta<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.alternatives --display mta<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.vi /etc/postfix/main.cf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> a. /inet_interfaces<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     #inet_interfaces = localhost<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     inet_interfaces = all<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> b. /mydestination = local-host-names 视为本机信件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    mydestination = domain.com, example.domain.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> c. /mynetworks<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    mynetworks = 192.168.0.0/24, 127.0.0.1 帮助relay<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> d. /myorigin = masquerade<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    myorigin = domain.com<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.service postfix start<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">额外设置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/postfix<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> a.virual 别名<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> b.access mail routing controls<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/aliases 群集<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">procmail (postfix默认不使用)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. vi /etc/postfix/mail.cf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /procmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   mailbox_command = /usr/bin/procmail<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.过滤<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  a.所有用户/etc/procmailrc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  b.单独的用户 $HOME/.procmailrc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   eg. 1.ls /etc/promailrc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       2.: 0 b //b == move<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">        *^Subject:.*spam 只要有spam就过滤<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">           joke<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       3.mkdir joke<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    echo "first tst" | mail -s 00spam00 mis<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"><br />
+		</span> </p>

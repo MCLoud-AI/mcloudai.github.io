@@ -1,0 +1,34 @@
+---
+layout: post
+title: 第二篇章：u盘病毒查杀2.0正式版(vista版)
+date: 2008-07-08 12:18:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Programming
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '7146672281037858901'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p><font color="#000000">由于以前那个寻找U盘所在磁盘非常不智能，而且智能找到一个U盘，如果对移动硬盘来说就显的力不从心了，所以用for语句，升级了1.0,然后又加上了显示U盘所有文件的功能，更加的实用，以下是源代码：</font></p>
+<p><font color="#999999">@echo off</font></p>
+<p><font color="#999999">echo 进行U盘病毒免疫<br />reg add HKEY_CURRENT_USERSoftwareMicrosoftWindowsCurrentVersionPoliciesExplorer /v NoDriveTypeAutoRun /t REG_DWORD /d 0x91 /f<br />echo --------------------------------------------------------------------<br />if errorlevel 1 echo 免疫失败<br />if errorlevel 0 echo 免疫成功<br />echo --------------------------------------------------------------------<br />echo 请你插入你的U盘，并按任意键继续<br />pause<br />echo --------------------------------------------------------------------</font></p>
+<p><font color="#999999">rem 取得磁盘名称<br />for /f "skip=1 tokens=2,3,4,5,6,7,8,9,10 delims=" %%i in ('fsutil fsinfo drives') do (<br />set i=%%i<br />set j=%%j<br />set k=%%k<br />set l=%%l<br />set m=%%m<br />set n=%%n<br />set o=%%o<br />)</font></p>
+<p><font color="#999999">rem 选择移动硬盘<br />for %%q in (%i% %j% %k% %l% %m% %n% %o%) do (<br />for /f "tokens=2 delims=- " %%p in ('fsutil fsinfo drivetype %%q') do (<br />if not %%p==CD (call :scan %%q)<br />if %%p=="可移动驱动器" (set move=%%p)<br />)<br />)</font></p>
+<p><font color="#999999">echo -------------------------------------------------------------------<br />echo 你的u盘已经安全<br />echo -------------------------------------------------------------------<br />echo 有的病毒把真实的文件夹隐藏了，可以用下面的选项显示出来，如果没有被隐藏，请选择NO（请根据情况选择）<br />echo -------------------------------------------------------------------<br />choice /c YN /m "是否显示你被隐藏的文件夹: y.选择 n. 跳过"<br />if errorlevel 2 goto end<br />if errorlevel 1 goto xianshi<br />pause</font></p>
+<p><font color="#999999">rem 查杀病毒<br />:scan<br />%1<br />echo 正在进行%1盘杀毒........<br />echo --------------------------------------------------------------------<br />for /f "tokens=4 delims= " %%i in ('dir /a:h /a:s ^|findstr /i /c:.pif /c:.inf /c:.exe /c:.vbs /c:.bat /c:.com') do (<br />rem  echo 病毒文件名:%%i<br />rem  echo -----------<br />rem  del /f /a:h /a:s %%i<br />rem  echo 删除病毒成功<br />)<br />echo --------------------------------------------------------------------<br />goto :eof</font></p>
+<p><font color="#999999">:xianshi<br />%move%<br />attrib /s /d -s -h *.*<br />echo ---------------------------------------------------------------<br />echo 文件夹已经显示出来<br />echo ---------------------------------------------------------------</font></p>
+<p><font color="#999999">:end<br />echo 请重新插拔你的U盘<br />echo 作者:my-yl<br />pause</font><br /><font color="#000000">下面是文件，可以直接下载</font></p>
+<p><a href="http://internet.yo2.cn/wp-content/uploads/254/25402/2008/07/ue79b98e79785e6af92e69fa5e69d8020e6ada3e5bc8fe78988.rar" title="u盘病毒查杀2.0正式版">u盘病毒查杀2.0正式版</a>
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/1125273420938643422-7146672281037858901?l=everydaydreamy.blogspot.com" alt="" /></div>

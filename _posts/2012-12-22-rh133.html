@@ -1,0 +1,2486 @@
+---
+layout: post
+title: RH133
+date: 2012-12-22 02:28:56.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Unix/Linux
+tags: []
+meta:
+  _publicize_pending: '1'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p style="text-align:center;"><span style="font-family:新宋体;font-size:22pt;">RH133<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:22pt;">目录<br />
+</span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit1 install    - 2 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 2 开机流程    - 4 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 3 kernel    - 9 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 4 filesystem    - 11 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 5 network configuration    - 14 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 6 RPM and kickstat    - 16 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 7 user administrator    - 19 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 8 advanced user administrator    - 21 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 9 printing and administration tools    - 24 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 10 system logging    - 26 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 11 advanced filesystem management    - 27 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p><span style="font-family:新宋体;"><span style="font-size:10pt;">unit 12 troubleshooting    - 28 -</span><span style="font-size:10pt;"><br />
+			</span></span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p style="margin-left:21pt;"><span style="font-family:新宋体;font-size:10pt;">本内部资料由杨溢龙编写，希望在RHCE的考试道路上祝大家一臂之力<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">                            YOU ARE THE ONE RHCE<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1><span style="font-size:14pt;">unit1 install<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">boot: linux askmethod<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">Local CDROM<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">Hard drive<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">NFS image<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">FTP<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">HTTP<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">device node:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">block devices:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /dev/hda  IDE   drives  第二个为hdb 不同分区为hda1 hda2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /dev/sda  SCSI  drives  第二个为sdb  同上<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /dev/fd0  floppy<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">character devices:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /dev/tty[0-6]  virtual consoles<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /dev/st0       scsi tape drvie<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">symbolic links<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">grep ^l 塞选l属性的文档<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">安装工具<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">阶段一：开机<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> diskboot.img          USB上<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> boot.iso           CD上<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> pxeboot directory<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">阶段二：安装<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> graphical or textual， kickstart 自动安装<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">注意事项：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/ must include /etc, /lib /bin /sbin /dev<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">swap 2倍内存<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">下面单独mount /boot /home /usr /var /tmp /usr/local /opt<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">software raid 磁盘阵列<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">多个分区-》一个分区<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">hardware raid<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">raid levels:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">raid 0 : 2个partions 每个里面一个 速度快 不安全 大小是总和<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     1 : 2个partions 一个写两遍   速度慢 安全   大小是总和的二分之一<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     5 : 3个以上 每两个进行逻辑运算存到第三个 安全介于两之间 速度也在中间 大小<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">LVM: logical volume manager<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">PV-&gt;VG-&gt;PE<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">多个partion部分-&gt;一个group<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">group不能直接使用-&gt; logical volume才可以<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">LV不对应PV 动态放大<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1><span style="font-size:14pt;">unit 2 开机流程<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">bios-&gt;mbr-&gt;kernel+initrd-&gt;init<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">bios+grub+init<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">bios: basic input/ouput system<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.周边检测 power on self test(POST)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.哪个设备开机(启动设备检测,如光驱,硬盘)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.mbr(硬盘开始的512byte)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">grub管理程序grand unified bootloader<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">     |   (GRUB程序)   |  三个阶段stage1 stage2 stage3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">bios-&gt;mbr-&gt;kernel+initrd-&gt;init<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">按C: 进入command line<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">支持md5<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">stage1：mbr中的446byte的boot loader也可以在硬盘的启动分区里<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">stage2: 加载grub.conf内核 kernel<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">stage3: 加载grub.conf驱动 initrd<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">stage1:可以在mbr或者是引导磁盘分区<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">MBR :master boot rack的简称<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   0轨道 512byte<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">MBR分为:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.boot loader: 446byte 从哪个partition开机<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.partition table: 64byte 开始的磁住和节数的磁住<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  每个partition 16byte 所以最多又4个分区：主和扩<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">多余四个分区话使用扩展分区<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">每个分区都记录自己的磁住和节数的磁住和下一个开始的磁住<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">note:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">a.windows:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">boot loader中标记的要开机引导到的分区，设置为作用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">然后在开机引导的分区进行启动<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">b.unix/linux<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">boot loader中安装grub的stage1-&gt;stage2(grub.conf)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">或者<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">boot loader中标记开机要引导的分区通常是/boot<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">把真正的boot loader放到分区里/boot里<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">linux下boot loader可以是grub/lilo<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mbr中的boot loader只是boot loader的一部分<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">note: troubshooting<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">如何开机直接进入grub的命令模式，说明/boot/grub/grub.conf丢了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">如果mbr中的grub stage1丢了(安装linux后安装windows) 使用两种方式恢复:<br />
+</span></p>
+<ol>
+<li><span style="font-family:新宋体;font-size:10pt;">grub-reinstall /dev/had<br />
+</span></li>
+<li>
+<div><span style="font-family:新宋体;font-size:10pt;">grub命令模式中: 1.root (hd0,0)   /boot所在分区要引导过去grub.conf所在地<br />
+</span></div>
+<p style="margin-left:87pt;"><span style="font-family:新宋体;font-size:10pt;">2.setup (hd0) 设置新的mbr stage1<br />
+</span></p>
+<p style="margin-left:87pt;"><span style="font-family:新宋体;font-size:10pt;">3.quit<br />
+</span></p>
+</li>
+</ol>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">stage2/3:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">grub.conf配置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">第一个部分：基本<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      default:0(默认用第一组开机)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">       timeout 等待时间<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      splashimage grup图片(hd0,0)就是/boot第一个硬盘的第一个分区<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          password 密码  //保护grub<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          password --md5 32位码(用grub-md5-crypt生成)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      hiddenmenu<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">第二个部分：多系统<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">linux:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          title 标题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          root (hd0,0) /boot<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          kernel /vmlinuz  ro root=LABEL=/  rhgb(图形) quiet(不显示错误)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          initrd /initrd<br />
+</span></p>
+<p style="margin-left:42pt;"><span style="font-family:新宋体;font-size:10pt;">root也可以用绝对路径rhce考试root=/dev/sda2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">win:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          title<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          root(hd0,0)    C盘所在配置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          chainloader+1<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">note:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">给kernel传递参数 ro root=LABEL=/ 1  singe user mode 不用输入密码进入linux<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">设置密码 防止黑客<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">grub-md5-crypt 设置MD5密码(实际中重点要用那)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">reboot 重启<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">按e 编辑开机设定 改成正确的 之后按b<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">故障排除(重点)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">init:(可以好好看看用bash shell写的)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">rc.sysinit-&gt;fstab-&gt;rc [0-6]-&gt;rc[0-6].d-&gt;rc.local-&gt;console<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config: /etc/inittab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. run level<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">0:         shutdown halt 不能设置默认<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">1:         single-user modes -&gt; rc.sysinit -&gt; rc1.d/*<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">S:         rc.sysinit<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">emergency: some rc.sysinit<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">2:        multi-user without NFS networking<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">3:        full multi-user mode -&gt; text mode<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">4:        some to 3<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">5:        x11<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">6:         reboot  不能设置默认<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">id:5:initdefault<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">选择run level的方式<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">1: /etc/inittab<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">2: grub传递参数<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">3: init指令<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">查看run level<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">/sbin/runlevel<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. inital script<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/rc.d/rc.sysinit<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">1. udev(热插拔) and selinux<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">2. /etc/sysctl.conf kernel<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">3. clock<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">4. keymaps<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">5. swap<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">6. hostname /etc/sysconfig/network<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">7.  / 根目录<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">8. raid and LVM<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">9. disk quotas 限制大小<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">10. othersystem mount<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">11. 清楚开机没用的东西<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. run level specifi script<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/rc.d/rc 5<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">执行:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/rc.d/rc5.d<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/rc.local (所有level执行的指令设置到这里来)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">note:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/rc.d/rc[0-6].d里面都是符号链接,连接到/etc/rc.d/init.d<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">/etc/rc.d/init.d 真正的脚本在里面(服务)<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">start stop同一个脚本 /etc/init.d(link: /etc/rc.d/init.d)<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;"> httpd start 启动<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;"> httpd stop 停止<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">daemon processes (后台程序)服务<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">two type<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">1. standalone<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">  1.init         ex. virtual console<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">  2.system v daemon     ex. httpd<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">    system v init script /etc/rc.d/init.d<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">         /etc/rc.d/rc5.d<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">          1. K/S  k-&gt;kill s-&gt;start<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">           2. 数字 执行的先后顺序 小先大后<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">          3. 名称<br />
+</span></p>
+<p style="margin-left:41pt;"><span style="font-family:新宋体;font-size:10pt;">3. xinetd服务:特点就是需要时候开放,平时不占用资源<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">   配置/etc/xinetd.conf<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">   服务文件在/etc/xinetd.d/下<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">   启动停止用chkconfig<br />
+</span></p>
+<p style="margin-left:33pt;">
+ </p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">服务配置<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">1. 自动开机<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">  a.ntsysv 无参数 只设定当前level<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">    ntsysv --level 35<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">  b.chkconfig 原理是添加符号连接/etc/rc.d/rc5.d/<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">    chkconfig gpm --level 123 off<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">    chkconfig gpm --list 查看预设<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">  c.system-config-service<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">2. 手动<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">  a.service start/stop<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">    /etc/init.d/gpm start/stop (一般使用这个) 支持各种版本<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">                    reload = restart  status 看状态<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">  b.chkconfig telnet off 立即停用 xinte.d服务<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">  c.system-config-service<br />
+</span></p>
+<p style="margin-left:33pt;">
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. 组合键 关机重启什么的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6. virtual console tty /etc/mingetty<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">vitual console<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">定义在/etc/inittab<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">切换 ctrl+alt+F1-6<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">/dev/ttyn<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">/dev/tty0: cutrent<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">12个console<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">1-6 accpet login<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">7是x windows<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7 if run level 5 -&gt; x windows  /etc/X11/prefdm<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  else text mode<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">小技巧：<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">关机<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. shutdown -h now/22:00<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. halt(终止)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. power off<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. init 0<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">重启<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1, shutdown -r now<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. reboot<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. init 6<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4. ctrl+alt+del<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1><span style="font-size:14pt;">unit 3 kernel<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">1.kernel modules<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> a.周边驱动<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> b.额外档案系统<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2./lib/modules<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. lsmod 列模块<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> modeprobe(modeprobe &lt;module-name&gt;)载入依赖的模块 –t卸载<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.configuration<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  a./sbin/modinfo(modinfo &lt;module-name&gt;)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  b./etc/modprobe.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    alise: 网卡 声卡 usb<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    parameters<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    actions<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  c. 依赖性 /lib/modules/name/modules.dep<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      depmod -a<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  d.insmod 载入<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    rmmod  删除<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5. /proc virtual filesystem  kernel(kernel在文件的临时印象，修改都是临时生效)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   ex. cat /proc/cpuinfo<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /proc/scsi/<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /proc/sys  kernel参数<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /proc/&lt;PID&gt; 正在执行<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6. sysctl 才能真正修改<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   /etc/sysctl.conf 写到这里 (直接修改修改可以，但建议使用sysctl命令)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   sysctl -a 列出所有<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          -w 设置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">          -p 同步<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   rc.sysinit -&gt; sysctl.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">7. dmesg 查看ring buffer<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  kernel-&gt;klogd-&gt;ring buffer-&gt;/var/log/dmesg<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   kudzu 监测新硬件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    /etc/sysconfig/hwconf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    /usr/share/hwdata 使用这个硬件库<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    /proc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   hwbrower 图形工具看硬件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">8  PCI bus lspci监测  存在/proc/bus/pci<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   ISA bus /proc/isapnp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">9.a. USB and IEEE1394<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   hotplug指令 /etc/hotplug 载入驱动<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   写入 /proc/bus<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   lssub看当前USB设备  /dev/usb<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  b. pcmcia<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     启动cardmgr 从/etc/pcmcia载入<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     写入/proc/bus/pccard<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     cardctl 看当前设配<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">10. monitoring system and prcess control<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    top, gnome-system-monitor 显示process<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    vmstat 看虚拟内存的情况<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    free 看内存情况<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    renice 调整优先<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     nice -n &lt;priority&gt; &lt;app&gt; 没执行<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">     renice &lt;priority&gt; &lt;app&gt; 执行了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    kill -l 可以列出每个信息的代码<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">kill -9 &lt;pid&gt;<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1><span style="font-size:14pt;">unit 4 filesystem<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">一般的分区<br />
+</span></p>
+<ol>
+<li><span style="font-family:新宋体;font-size:10pt;">用fdisk分区<br />
+</span></li>
+</ol>
+<p><span style="font-family:新宋体;font-size:10pt;">fdisk建立partition<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">fdisk -l /dev/sda 显示硬盘分区表<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">fdisk /dev/sda<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">      /dev/hda<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">要重开机<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">不重开机partprobe 分区就加载上了 重新读取分区表<br />
+</span></p>
+<ol>
+<li><span style="font-family:新宋体;font-size:10pt;">使用mkfs.ext3(各种格式后缀不一样)<br />
+</span></li>
+<li>
+<div><span style="font-family:新宋体;font-size:10pt;">要打标签用e2label(考试考了)<br />
+</span></div>
+<p><span style="font-family:新宋体;font-size:10pt;">设置lable<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">e2lable /dev/sda5 name  设置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">e2lable /dev/sda5     查看<br />
+</span></p>
+</li>
+<li><span style="font-family:新宋体;font-size:10pt;">临时挂载用mount<br />
+</span></li>
+</ol>
+<p><span style="font-family:新宋体;font-size:10pt;">mount  挂载<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">mount /dev/sda5 /date 挂载<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">umonut /dev/sda5 | 目录 卸载<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">挂载和卸载 可以用label<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">mount -L Label mount_point<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">umount /date<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">mount -t vfstype -o option<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">vfstype : vfat ext2 ext3 iso9660<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">option: auto 开机自动挂载(默认)<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">mount 显示挂载<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">df –h 显示已经挂载<br />
+</span></p>
+<p>
+ </p>
+<p style="margin-left:10pt;"><span style="font-family:新宋体;font-size:10pt;">正在使用无法卸载<br />
+</span></p>
+<p style="margin-left:10pt;"><span style="font-family:新宋体;font-size:10pt;">fuser 查看使用状态<br />
+</span></p>
+<p style="margin-left:10pt;"><span style="font-family:新宋体;font-size:10pt;">fuser -v  /date 看哪个使用者正在进行<br />
+</span></p>
+<p style="margin-left:10pt;"><span style="font-family:新宋体;font-size:10pt;">fuser -km /date 停止所有动作<br />
+</span></p>
+<p style="margin-left:10pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">remount改变状态<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">mount -o remount,ro /date<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">mount .iso<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">mkdir /iso<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">mount -t iso9660 -o ro,loop boot.iso /iso<br />
+</span></p>
+<p style="margin-left:10pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">挂载网络的资源<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">NFS linux&lt;-&gt;linux 分享资源的叫资源<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">SMB linux&lt;-&gt;microsoft<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">如何connect<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">NFS<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">发现: showmount -e ip<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">连接: mount ip://shared/dir /mnt/nfs<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">    <br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">SMB<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">发现: smbclient -L ip -N<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">连接: mount //ip/share_name /mnt/smb -o username=account%password<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">自动mount，设置fstab<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">lost+found 有问题的都在里面<br />
+</span></p>
+<p>
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">auto-mounter (autofs) 需要时挂载<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">进入目录时候自动挂载<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">conf:<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">主配/etc/auto.masters<br />
+</span></p>
+<p style="margin-left:21pt;"><span style="font-family:新宋体;font-size:10pt;">目录  设定文件<br />
+</span></p>
+<p style="margin-left:21pt;"><span style="font-family:新宋体;font-size:10pt;">/misc /etc/auto.misc<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">从配/etc/auto.misc<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">server1 –ro,soft server1:/var/ftp/pub<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">* -fstype=nfs server1:/home/guest/&amp; 多个目录 考试<br />
+</span></p>
+<p style="margin-left:22pt;"><span style="font-family:新宋体;font-size:10pt;">ro soft(显示错误) intr(允许中断)<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">最后service autofs restart<br />
+</span></p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">cd /misc/server1<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">cd /misc/guest100<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">自动挂上<br />
+</span></p>
+<ol>
+<li>
+<div><span style="font-family:新宋体;font-size:10pt;">开机也要挂载写入/etc/fstab(由rc.sysinit调用)<br />
+</span></div>
+<p><span style="font-family:新宋体;font-size:10pt;">mount –a 挂载所有<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">tune2fs 调整文件系统参数<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">dumpe2fs 看分区现有参数<br />
+</span></p>
+<p>
+ </p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">/etc/fstab<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">device:     label | dev (考试)<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">mount_point:<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">filesystem:<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">options:<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">dump_freq: 0=never, 1=daily, 2=every other day  转存<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">fsck_order: 0=ignoe, 1=first, 2=second  开机扫描顺序<br />
+</span></p>
+<p>
+ </p>
+</li>
+</ol>
+<p><span style="font-family:新宋体;font-size:10pt;">swap分区(考试)<br />
+</span></p>
+<p style="text-align:justify;"><span style="font-family:新宋体;font-size:10pt;">a. 创建swap分区或者交换文件(windows就是用的这种，虚拟内存)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">b. mkswap<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">c. /etc/fstab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">d. 激活 swapon -a<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">e. 查看作用的swap swapon –s<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">（如果不用/etc/fstab，可以直接swapon /dev/sdax）<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">partition:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">要进行设置partition id=82<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">file<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">dd: convert and copy file<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">dd if=/dev/zero of=/swapfile bs=1M count=100<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1><span style="font-size:14pt;">unit 5 network configuration<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">网络配置<br />
+</span></p>
+<ol>
+<li>
+<div><span style="font-family:新宋体;font-size:10pt;">ip and netmask<br />
+</span></div>
+<ol>
+<li><span style="font-family:新宋体;font-size:10pt;">临时: ifconfig eth0 10.1.1.100 netmask 255.0.0.0 broadcat 10.0.1.254<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">setup<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">文件<br />
+</span></li>
+</ol>
+<p style="margin-left:15pt;"><span style="font-family:新宋体;font-size:10pt;">netconfig 产生对应文档<br />
+</span></p>
+<p style="margin-left:15pt;"><span style="font-family:新宋体;font-size:10pt;">netconfig --device eth1 产生新的<br />
+</span></p>
+<p style="margin-left:15pt;"><span style="font-family:新宋体;font-size:10pt;">ifcfg-xxx<br />
+</span></p>
+<p style="margin-left:15pt;"><span style="font-family:新宋体;font-size:10pt;">eg. ifcfg-eth0<br />
+</span></p>
+<p style="margin-left:15pt;"><span style="font-family:新宋体;font-size:10pt;">/etc/sysconfig/network-scripts/<br />
+</span></p>
+</li>
+</ol>
+<p><span style="font-family:新宋体;font-size:10pt;">      动态: BOOTPROTO=DHCP<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      静态: IPADDR=192.168.0.1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             NETMASK=255.255.255.0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">      应用: ifdown eth0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">            ifup eth0<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">      一个网卡多个ip<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">vitual interface<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;"> ifcfg-eth0<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;"> ifcfg-eth0:0<br />
+</span></p>
+<p style="margin-left:33pt;">
+ </p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">一个网卡大量ip<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">ifcfg-eth0-range0<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">修改<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">IPADDR_START=192.168.0.1<br />
+</span></p>
+<p style="margin-left:33pt;"><span style="font-family:新宋体;font-size:10pt;">IPADDR_END=192.168.0.254<br />
+</span></p>
+<ol style="margin-left:39pt;">
+<li><span style="font-family:新宋体;font-size:10pt;">system-config-network<br />
+</span></li>
+</ol>
+<ol>
+<li>
+<div><span style="font-family:新宋体;font-size:10pt;">gateway<br />
+</span></div>
+<p><span style="font-family:新宋体;font-size:10pt;">a.  全局/etc/sysconfig/network中 GATEWAY=192.168.0.1<br />
+</span></p>
+<p style="margin-left:24pt;"><span style="font-family:新宋体;font-size:10pt;">b.  局部/etc/sysconfig/network-scripts/ifcfg-XXX每个配置文件中ifcfg-eth0 GATEWAY=192.168.0.1<br />
+</span></p>
+</li>
+</ol>
+<p><span style="font-family:新宋体;font-size:10pt;">c.  DHCP自动获得<br />
+</span></p>
+<ol>
+<li>
+<div><span style="font-family:新宋体;font-size:10pt;">dns server<br />
+</span></div>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">/etc/nsswitch.conf 配置查找顺序<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">/etc/resolve.conf 配置dns client<br />
+</span></p>
+<p style="margin-left:24pt;"><span style="font-family:新宋体;font-size:10pt;">加入search domain.com<br />
+</span></p>
+<p style="margin-left:24pt;"><span style="font-family:新宋体;font-size:10pt;">表示ping server1<br />
+</span></p>
+<p style="margin-left:24pt;"><span style="font-family:新宋体;font-size:10pt;">就成server1.domain.com<br />
+</span></p>
+</li>
+<li>
+<div><span style="font-family:新宋体;font-size:10pt;">other(hostname and static route)<br />
+</span></div>
+<p><span style="font-family:新宋体;font-size:10pt;">hostname<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">hostname查看主机名称<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">rc.sysinit 有$HOSTNAME的内容<br />
+</span></p>
+<p>
+ </p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">/etc/sysconfig/network<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">HOSTNAME=www.domain.com<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">Static route:<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">/etc/sysconfig/network-scriptes/route-eth0<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">a.临时加静态路由<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">route add -net 10.0.1.0 netmask 255.255.255.0 gw 192.168.0.144<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">b.永久写到/etc/sysconfig/network-scriptes/route-eth0<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">10.0.2.0/24 via 192.168.0.144<br />
+</span></p>
+<p style="margin-left:4pt;"><span style="font-family:新宋体;font-size:10pt;">/etc/sysconfig/network 修改主机名称<br />
+</span></p>
+</li>
+</ol>
+<p><span style="font-family:新宋体;font-size:10pt;">5.常用网络指令<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">1.ping<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">2.traceroute<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">3.netstat<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">4.host<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">5.dig<br />
+</span></p>
+<p style="margin-left:11pt;">6.nslookup</p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<p style="margin-left:11pt;">
+ </p>
+<h1><span style="font-size:14pt;">unit 6 RPM and kickstat<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">RPM的组成部分<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.本地数据库/var/lib/rpm<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.rpm文档和相关的文件档<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.套件档案<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">name-version-修正次数-哪种平台<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">i386表示x86都可以使用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">i586表示只有586可用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">i686表示只有686可用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">noarch表示都可以使用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">src.rpm表示源代码先编译为rpm就可以了<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">rpm主要功能<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.install<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  rpm -i --install 新旧同时存在 (升级kernel)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  rpm -U --upgrade 不存在，安装<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  rpm -F --fresh   不存在，不升级 （更新现有的系统）<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  rpm -e –earse<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  rpm --replacepkgs 重新安装<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  rpm --oldpackage 用旧版本替换新的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  一般加vh显示安装速度<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  支持http:// ftp://<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  uname -r 显示kernel版本<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.query查询相关<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  1.查询安装过的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   rpm -qa 显示总共安装的套件 q=query a=all<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   rpm -qf  rpm -qf /bin/gzip 显示从哪个档案安装的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   rpm -qi /bin/gzip 显示相关信息<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   rpm -ql /bin/gzip 显示套件中包含的文件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  2.查询没有安装过的-*<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   rpm -qip 查看相关信息 rpm -qip sss.i386.rpm<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">   rpm -qlp 查看总共包含哪些文件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.verfity<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  1.验证安装过的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    rpm -Va 验证安装后的所有<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    S:表示大小不一样<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    M:表示权限不一样<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    5:表示md5不一样<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    T:时间不一样<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    U:所有者<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    rpm -V  pack_name<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    rpm -Vp pack_file.i386.rpm<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  2.验证安装前有没有red hat的签署<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    rpm --import RPM-GPG-KEY<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    rpm -qa gpg-pubkey 看自己的GPG<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">    rpm –K/--checksig package_file.i386.rpm<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.编译<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">几个工具<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">rpm只有root才能使用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">cpio一般user也能使用<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">rpm2cpio packfile.i386.rpm &gt; packfile.cpio<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">cpio -it &lt; packfile.cpio<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mkdir packfile_name<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">cpio -id &lt; packfile.cpio<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">rpmdb-redhat 检查相依性<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">system-config-package<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">解决相依性<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.使用--aid参数<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.yum (代替up2date)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> yumdownloader 下载rpm文件  提前安装yum-utils<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> yum update kernel 安装新的 就的不删除<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> yum remove kernel-old<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">使用kickstart多个安装<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ks.cfg自动安装文档<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">结构:<br />
+</span></p>
+<ol>
+<li><span style="font-family:新宋体;font-size:10pt;">command<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">%package<br />
+</span></li>
+<li>
+<div><span style="font-family:新宋体;font-size:10pt;">script %pre<br />
+</span></div>
+<p style="margin-left:24pt;"><span style="font-family:新宋体;font-size:10pt;">  %post<br />
+</span></p>
+</li>
+</ol>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">设置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">system-config-kickstart<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">如果没有发现<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">system-config-packages<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">administratration tools里面有<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">%packages<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">%pre 安装以前的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">%post 安装以后<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">用ksvalidator验证.ks文件<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">boot: linux ks=http:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">               nfs:server:/file<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">               hd:devices:file<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">建立yum仓库<br />
+</span></p>
+<ol>
+<li><span style="font-family:新宋体;font-size:10pt;">安装createrepo<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">createrepo –v /package-directory<br />
+</span></li>
+</ol>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">xen : 安装xen kernel-xen virt-manager<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1><span style="font-size:14pt;">unit 7 user administrator<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">用户和组配置文件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/passwd<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">/bin/bash     可以登陆<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">/sbin/nologin 不能登陆<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">/bin/false  只能收发邮件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/shadow<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/group<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/gshadow<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">使用命令管理<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">用户管理<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/passwd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">useradd 添加用户<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">usermod 改变用户状态<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">usermod -d /home/user-6 user6 修改家目录<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">usermod -G user9 user1 修改群组<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">usermod -g user9 user1 修改gid<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">usermod -L user9 锁定帐号<br />
+</span></p>
+<p style="margin-left:11pt;"><span style="font-family:新宋体;font-size:10pt;">usermod -U user9 解除锁定<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">userdel –r 删除用户<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">passwd  改变密码<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">newusers 建立用户 使用文件建立帐号<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">newusers filename<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">id username 可以显示username的资料<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">组管理<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/group<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">groupadd 建议新的group<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">groupmod -n group2 group1 重新命名<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">groupdel 删除group<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">一些策略，账号密码策略<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">设置密码有效期<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">默认永远不会过期<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">config:/etc/login.defs<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chage [options] usrname<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chage -l user6 显示资料<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chage -d 2008-07-22 user6<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/shadow         <br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chage -m 1 username         第四栏表示用多久才可以改变密码<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chage -M 7 username         第五栏表示每隔多久变密码<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">                            第六栏 警告<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chage -I 4 user4            第七栏 多少天不改变就锁定<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">chage -E 2005-08-21 user4    第八栏 到期日<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">用户登陆执行哪些shell scripts<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">看rh033<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">             profile               bachrc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">purpose            定义变量             bash的设定文件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">for all users         /etc/profile             /etc/bashrc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">for one user         ~/.bash_profile            ~/.bashrc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             1.登陆执行            1.开启shell就执行<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             2.先登出在登入才能生效<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">su 切换用户<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> su [-] user [-c] command<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">不加 没有登陆<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">加了 就等于用新的登陆<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">sudo 一般使用者 使用root的命令<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/sudoers<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">visudo 编辑<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1><span style="font-size:14pt;">unit 8 advanced user administrator<br />
+</span></h1>
+<ol>
+<li><span style="font-family:新宋体;font-size:10pt;">nis, ldap<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">acls<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">quotas<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">selinux<br />
+</span></li>
+</ol>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">network user<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">user login -&gt; local account-&gt; nis/ldap<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">                  |              |<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">              local user    network user<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">account:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.account information<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.authentication<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/nsswitch<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">passwd: file nis<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">shadow: file nis<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">group:  file nis<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">图形:system-config-authentication<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">命令行(推荐): authconfig-tui 必须先安装authconfig-gtk<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">用户信息: files, nis, ldap, winbind<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">验证: nis, ldap, winbind 等等<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">NIS configuration<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. 安装ypserv and portmap ,yp-tools<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. authconfig-tui<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">LDAP configuration<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  与NIS对比 可以记录很多别的帐号信息<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">LDAP(windows下的域控制器)<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.安装nss-ldap and openldap<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.authconfig-tui<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">文件acls<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">在/etc/fstab里面加上default后面加acl<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mount -o remount,acl /<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">磁盘<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">tune2fs -l /dev/sda | grep options<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">tune2fs /dev/sda1 -o acl<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">文件<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">getfacl /abc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">setfacl -m u:user2 r-x /abc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">           g:<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">quota system<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.limit users:  usrquota 挂载档案加<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.limit groups: grpquota<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.limit block:大小<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.limit inodes:目录数目<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.soft limit 暂时超过数目<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  grace period<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置（考试要考的）<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/fstab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.defaults,usrquota<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mount -o remount /home<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.quotacheck -cu /home<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.quotaon /home<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.setquota -u user &lt;block limit&gt; &lt;hard limit&gt; &lt;inode limit&gt; &lt;inode limit&gt;<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">关于quota命令<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">quota 显示磁盘内容<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">edquota -p user1 user2 把user1复制给user2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">repquota -a 所有使用者的quota<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">selinux<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ls -Z 文件安全上下文<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ps -Z 进程安全上下文<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">policy<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">getsebool 查看策略<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">setsebool 设置策略<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">恢复默认上下文restorecon<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">查看默认上下文 semanage fcontext -l | grep xxx<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">设置上下问 chcon -t xxx 目录/文件<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置selinux的模式<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/sysconfig/selinux<br />
+</span></p>
+<ol>
+<li><span style="font-family:新宋体;font-size:10pt;">enforcing 默认<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">permissive<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">disables<br />
+</span></li>
+</ol>
+<p><span style="font-family:新宋体;font-size:10pt;">查看模式 sestatus<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">设置setenforce 0/1<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1><span style="font-size:14pt;">unit 9 printing and administration tools<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">cups = common unix printing system<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">documents -&gt; queue -&gt; cups(web) -&gt; input file -&gt;  printer<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/cups/cupsd.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/cups/printers.conf<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.lpadmin<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.system-config-printer<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.system-config-printer-tui 文字的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.cups web localhost:631<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">cron 计划任务<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">crontab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">crontab -u username<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">crontab -l 列出内容<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">crontab -r 删除<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">crontab -e 编辑<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">crontab -i 删除会有确认信息<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;"> "-" 表示连续的时间<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> "/" 表示每隔多少时间<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> "1-9/2"<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> minute hour day mounth week<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  0      0    25   12   *(不限制) run once a year<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  0      *    *    *    *         run once a hour<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  2      4    *    *    *         run once a day<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> */10    *    *    *    *         run once every 10 minutes<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  13    13   13    *    5<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">             or<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">限制的就是每多少执行<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">cron执行必须是完整路径<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">eg.<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.crontab -e<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">*/1 * * * * /bin/echo hello (不显示，因为以后台执行)<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">哪些人可以使用cron<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/cron.allow<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/cron.deny<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.有cron.allow 只有在里面才能使用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.只有cron.deny 只有没在里面的可以使用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.都没有所有人都可以使用<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">系统的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/crontab  --scripts<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /etc/cron.hourly<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /etc/cron.daily<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /etc/cron.weekly<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> /etc/cron.monthly<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">tmpwatch 清除好久没有操作的档案<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/cron.daily/tmpwatch<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">logrotate 压缩 mail系统文档<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/cron.daily/logrotate<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/logrotate.conf 配置logrotate的时间<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">anacron system 关机执行的脚本<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置 /etc/anacrontab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">ls -l /var/log/messages*<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<p>
+ </p>
+<h1><span style="font-size:14pt;">unit 10 system logging<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">1.application -&gt; syslogd   -&gt;/etc/syslog.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;"> facility分类priority -&gt;<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">等级debug,info,notice,warning,err,crit,alert,emerg<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">配置syslogd<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/syslog.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">"-" 表示先存到buffer里面 文档大的时候使用<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">"*" 表示所有的使用者<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">格式:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">服务.级别<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">几个常见的log<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/var/log/dmesg   //kernel log<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/var/log/message //error log<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/var/log/mailog<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/var/log/secure 登陆<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">日志服务器<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">发送log<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.在发送的电脑中编辑/etc/syslog.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">"@example" 存在example的电脑中<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2./etc/sysconfig/syslog<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">加入"-r"就可以了<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">the x windows system<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">run level 3: system-config-display<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">startx<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">startx -&gt; /etc/X11/xinit/xinitrc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">startx -&gt; ~/.xinitrc -&gt; /etc/X11/xinit/xinitrc.d/* -&gt; ~/.Xclient -&gt; /etc/sysconfig/desktop    | /etc/X11/xinit/Xclients<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">run level 5: init 5<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/X11/prefdm -&gt; /etc/X11/xinit/xinitrc.d/*<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-&gt; ~/.Xsession -&gt; ~/.Xclients -&gt; /etc/X11/xinit/Xclients<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">/etc/sysconfig/desktop<br />
+</span></p>
+<h1><span style="font-size:14pt;">unit 11 advanced filesystem management<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">dump 备份分区<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">-f 储存在哪里<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-u 储存dump level<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">dump -0 full backup<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">dump -1 incremental backup<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">dump -2<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">dump -3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">dump -4<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">差异备份 0 5 4 3 2 1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">增量备份 0 1 2 3 4 5<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">dump -0u -f ~/backup /dev/sda1<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">备份到服务器上<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">username@hostname:/path<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">tar zcvf root@example:/var/home.tar.gz /home<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">dump -0uf root@example:/var/home.dump /home<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">software raid:用一块硬盘的不同分区模拟成磁碟阵列<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.mdadm -C /dev/md0 -a yes -l 1 -n 2 /dev/sdb2 /dev/sdb3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.mke2fs -j /dev/md0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.mdadm --detail /dev/md0<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">有问题时<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mdadm --fail /dev/md0 /dev/sda1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mdadm --remove /dev/md0 /dev/sda1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">mdadm --add<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">LVM<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">LVM<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">分区-&gt;pv-&gt;vg-&gt;lv<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.建立两个partition<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.改变partition id=8e<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.partprobe<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.pvcreate /dev/sda7  //建立pv<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  pvcreate /dev/sda8<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.vgcreate vg1 /dev/sda7 /dev/sd8  //建立vg<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6.lvcreate -L 30M -n lv01 vg1 //建立lv<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">考试重点:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">增加:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.lvextend /dev/vg1/lv01 -L +20M<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.resize2fs /dev/vg1/lv01<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">减小<br />
+</span></p>
+<ol>
+<li><span style="font-family:新宋体;font-size:10pt;">resize2fs /dev/volgroup/data 100M<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">lvreduce /dev/volgroup/data -L 100M<br />
+</span></li>
+</ol>
+<p><span style="font-family:新宋体;font-size:10pt;">删除<br />
+</span></p>
+<ol>
+<li><span style="font-family:新宋体;font-size:10pt;">pvmove /dev/sda7<br />
+</span></li>
+<li><span style="font-family:新宋体;font-size:10pt;">vgreduce volgroup /dev/sda7<br />
+</span></li>
+</ol>
+<p><span style="font-family:新宋体;font-size:10pt;">添加<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.vgextend volgroup /dev/sda7<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">快照:<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">lvcreate -s -L size -n 名字 /dev/volgroup/data<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">恢复<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">restore -rf dumpfile<br />
+</span></p>
+<h1><span style="font-size:14pt;">unit 12 troubleshooting<br />
+</span></h1>
+<p><span style="font-family:新宋体;font-size:10pt;">解决问题原则<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.系统显示相关症状，不会提示问题出在哪里<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.搜集症状<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.哪些功能正常<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.假设问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.log证明是不是这个问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">6.修改conf要备份<br />
+</span></p>
+<p>
+ </p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.图形问题排除<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">a.不能在run level 5中<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">b.在run level 3<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">c.system-config-display 不行的话显卡有问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  X -probeonly 测试显卡<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">d./home or /tmp 是否是满的<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">e.service xfs status 看是否启动<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.网络问题的排除<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">a.dig hostname //dns是不是有问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">b.ifconfig //ip<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">c.route -n //gateway<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">d.驱动是否正确 cat /etc/modprobe.conf<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  alias etho pcnet32<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">e.重新启动网卡ifdown eth0<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">              ifup eth0<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.开机发生问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">a.grub<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">b.kernel<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">c.panic 根目录没有挂载 /sbin/init /etc/inittab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">d./etc/rc.d/rc.sysinit 无法启动<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  可能是/bin/bash损坏 /etc/fstab<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">e./etc/rc.d/rc<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">f./etc/rc.d/rc?.d<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">4.文件系统问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1.umount<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2.fsck -y<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3.mount<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">5.run-level问题<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">single user mode<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">1. run level one : grub 参数加1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">2. run level S:   引导时候安I键<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">3. run level emergency vi /etc/fstab自己错误就进去了<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">6.resuce mode<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  根目录损毁 grub损坏<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  用光碟开机<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  boot.iso<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  diskboot.img on usb key<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  会把跟目录挂到/mnt/sysimage上<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  dd if=/dev/zero of=/dev/sda bs=446 count=1<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  把MBR前面446破坏<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">  grub损坏<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  到boot: linux rescue 进入resuce mode<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  修复grub: grub-install /dev/sda<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  找不到 使用chroot /mnt/sysimage当作根目录<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  exit 退出/mnt/sysimage<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  exit 退出resuce<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">  根目录损毁<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  kernel panic<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  mount lable not found 设置错误了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  开机看a 修改就可以进去了<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">  修改/boot/grub/grub.conf<br />
+</span></p>
+<p>
+ </p>
+<p><span style="font-family:新宋体;font-size:10pt;">netstat --help<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-n: 不要做名称解析<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-l: listen port<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-p: 哪个程序用那个port<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-t: tcp<br />
+</span></p>
+<p><span style="font-family:新宋体;font-size:10pt;">-u: udp<br />
+</span></p>

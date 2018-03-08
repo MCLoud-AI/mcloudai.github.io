@@ -1,0 +1,61 @@
+---
+layout: post
+title: subversion(svn) in freebsd and ubuntu
+date: 2011-11-17 21:13:20.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Unix/Linux
+tags:
+- freebsd
+- svn
+- unix
+meta:
+  geo_public: '0'
+  _wpcom_is_markdown: '1'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>Our experiment lab need the svn server, so i install the svn in lab server ...</p>
+<ol>
+<li>install pkg_add / apt-get install subversion</li>
+<li>
+<p>svnadmin create /repo/project</p>
+</li>
+<li>
+<p>edit conf in project folder</p>
+</li>
+</ol>
+<p>cancel # <span style="color:#ff0000;">(make sure the word in the first position of line)</span></p>
+<p>anon-aceess = read / none</p>
+<p>anon-access =write</p>
+<p>password-db =passwd</p>
+<ol>
+<li>add user passwd in passwd</li>
+</ol>
+<p>[user]</p>
+<p>xxx = xxx</p>
+<p>============= FreeBSD=================</p>
+<ol>
+<li>before start</li>
+</ol>
+<p>svnserve_enable="YES"<br />
+svnserve_flags="-d --listen-port=3690 --listen-host 192.168.1.1" <span style="color:#ff0000;">  (if not listen-port 3690  the svn server only listen to ipv6)</span><br />
+svnserve_data="/usr/local/subversion"</p>
+<ol>
+<li>then  start</li>
+</ol>
+<p>/usr/local/etc/rc.d/svnserve start   -------- this method could not start the server up .... you may use the flowing method ....</p>
+<p>svnserve -d -r /usr/local/subversion/ --listen-port=3690 --listen-host 192.168.1.1</p>
+<p>============= Ubuntu =======================</p>
+<p>svnserve -d --foreground -r /repo --listen-port=3690 --listen-host 192.168.1.1</p>
+<p>add script to /etc/init.d/</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

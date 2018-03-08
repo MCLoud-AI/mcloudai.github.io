@@ -1,0 +1,35 @@
+---
+layout: post
+title: UTP problem (Thanks to Jim)
+date: 2012-05-13 16:55:43.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- foundation of mathematics
+tags:
+- UTP
+meta: {}
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>You should think about wait and wait' in connection with ok and ok'.</p>
+<p>Here is a suitable interpretation of their combinations:</p>
+<p>ok /\ wait: the process is in a stable intermediate state of its<br />
+sequential predecessor.</p>
+<p>ok /\ not wait: the process has been properly started from a stable final<br />
+state of its sequential predecessor.</p>
+<p>not ok: the process is in an unstable state of its sequential predecessor.</p>
+<p>ok' /\ wait': the process is in a stable intermediate state.</p>
+<p>ok' /\ not wait': the process is in a stable final state.</p>
+<p>not ok': the process is in an unstable state.</p>
+<p>As you can see, although wait and ok are boolean variables, there are<br />
+only three interesting combinations of their values (and the same for<br />
+wait' and ok').</p>
+<p>&nbsp;</p>

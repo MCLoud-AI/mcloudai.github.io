@@ -1,0 +1,96 @@
+---
+layout: post
+title: 'summary matlab study : basis'
+date: 2012-01-05 16:31:36.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- foundation of mathematics
+tags:
+- matlab
+meta: {}
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>In order to avoid forgetting the basis knowledge about matlab, the summary is as followes:</p>
+<p>Merit:</p>
+<p>1. matrix computing instead of for/while computing. save time and code.</p>
+<p>2. symbol/matrix computing is very convenience to mathematics.</p>
+<p>3. rich function toolbox that have already implement you can use and learn</p>
+<p>4. rich data display tools</p>
+<p>All the content can be regard as the function or command ,  is like shell / dos.</p>
+<p>you can execute in command line one by one,  or use the M file to put it together.</p>
+<p>you can write function and object .</p>
+<p><span style="color:#ff0000;">write the matlab code that are same as formula. or use matrix to redefine the formula</span></p>
+<p>&nbsp;</p>
+<p><strong>basic command :</strong></p>
+<p>1. clear \ clc,   you can use this in your main M file(function M / main M).</p>
+<p>2. help : find the details using method of design function.</p>
+<p>lookfor : find the command , when you give the function of command</p>
+<p>3. disp / printf</p>
+<p>4. tic</p>
+<p>code</p>
+<p>toc - timer in the code</p>
+<p>&nbsp;</p>
+<p><strong>Class of data</strong></p>
+<p>1. basic</p>
+<p>2. matrix / vector</p>
+<p>a = [ aaaa ;  bbbb]</p>
+<p>a(1,1)   %start with 1</p>
+<p>.* ./</p>
+<p>size(A, 1) - length of rows</p>
+<p>size(A, 2) - length of colums</p>
+<p>length(A) - max rows or columes</p>
+<p>pinv - inverse</p>
+<p>diag - diagonal matrix</p>
+<p>zeros / ones</p>
+<p>a'</p>
+<p>3. string   a = 'xxxxx';</p>
+<p>4.  symbol</p>
+<p>define: sys('   ')</p>
+<p>limit (limitation)/ diff (derivative) / int (integration)</p>
+<p>5. cell</p>
+<p>A(1,1 ) = every data type</p>
+<p>celldisp(A)</p>
+<p>6. structure</p>
+<p>A.attribute = every data type</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>Function Specification</strong></p>
+<p>you can have lots of function in M file, but it is only one main function which name is same as the name of M file.</p>
+<p>function [OutParm] = xxx(inParm)</p>
+<p>if  xxx</p>
+<p>elseif xxxx</p>
+<p>end</p>
+<p>while xxx</p>
+<p>end</p>
+<p>for i=1:20</p>
+<p>end</p>
+<p>end</p>
+<p>or use @ to get the point of the function.</p>
+<p>a. functionName = @ (InParm) ComputingExper</p>
+<p>b. functionName = @ functionB</p>
+<p>&nbsp;</p>
+<p><strong>Data Display</strong></p>
+<p>1. curve line</p>
+<p>plot(x1,y1, 'r+',x2,y2,'b-');</p>
+<p>plot3(x1,y1,z1);</p>
+<p>2. cure surface</p>
+<p>a. draw 2 dimension grid</p>
+<p>[X, Y] = meshgrid(x, y);  every point of the x and y.</p>
+<p>c. compute Z use X Y</p>
+<p>d. draw using  <span style="color:#ff0000;">mesh</span> or <span style="color:#ff0000;">surf  command</span></p>
+<p>3. other common command</p>
+<p>title(' '); xlabel('') ; ylabel(''); legend('','','')  -</p>
+<p>grid on ;  grid on figure</p>
+<p>hold on ; save draw</p>
+<p>hist - statistical histogram approximate density function</p>
+<p>scatter - discrete points</p>
+<p><span style="color:#ff0000;">other you can with the matlab tools in the workspace</span></p>

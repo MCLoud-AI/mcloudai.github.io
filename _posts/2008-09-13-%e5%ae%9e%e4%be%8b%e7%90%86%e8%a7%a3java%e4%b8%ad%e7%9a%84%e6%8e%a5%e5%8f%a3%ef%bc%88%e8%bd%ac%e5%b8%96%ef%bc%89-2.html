@@ -1,0 +1,107 @@
+---
+layout: post
+title: 实例理解Java中的接口（转帖）
+date: 2008-09-13 14:22:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Programming
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '6968076079839912286'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p class="articleContent">    学习Java也有一段时间了，觉得接口的理解与应用一直很难掌握。但是它却是一个非常有用知识点，所以花了很多的力气。</p>
+<p>    相信很多人在学习过程中遇到了与我一样的难题，希望互相探讨，互相学习，共同进步吧。</p>
+<p>    以一个具体的例子来帮助理解接口是如何在模块与模块之间完成通讯的。</p>
+<p>    我们以硬件生产来举例。我们先定义一个显卡的接口，我们把它叫做VideoCard.java 。</p>
+<p>    在显卡中要提供一个很重要的功能，就是显示的功能，所以它应该有一个显示的方法void Display()，我们还可以增加一个获取显卡厂商名字的功能String getName()。</p>
+<p>    则具体的接口程序段如下：</p>
+<p>Interface VideoCard{</p>
+<p>       void Display();</p>
+<p>       String getName();</p>
+<p>}</p>
+<p> </p>
+<p>    既然有了一个接口，要完成彼此之间的通讯，肯定是一个人去实现这个接口，另外一个人去调用这个接口，作为这种显示的功能，显然不应由主板来实现，那么它应该由显卡厂商去实现，现在有一个显卡厂商，叫做Dmeng，它要去做这个显卡，它当然就要实现这个接口当中的方法，新建Dmeng.java，显卡需要实现接口，才可以和主板通讯，即定义class Dmeng implements VideoCard，要实现这个接口，当然就要实现这个接口中所有的方法，其中一个是显示的功能，还有一个就是获取名字的功能。需要注意的是，在接口中所有的方法都是public的，所以，当你去实现这个接口当中的方法的时候，那么你所实现的方法的访问权限不能低于接口中方法定义时候的访问权限，也就是也应定义为public。</p>
+<p>    为简单起见，方法体以输出语句来表达，实际硬件生产和软件开发时，不会有如此简单的接口。则类为</p>
+<p>Class Dmeng implements VideoCard{</p>
+<p>      </p>
+<p>       String name;   //显卡的名字</p>
+<p> </p>
+<p>       //构造方法</p>
+<p>       public Dmeng(){</p>
+<p>              name= “Dmeng’s VideoCard”;</p>
+<p>       }</p>
+<p> </p>
+<p>       //给OEM厂商等设定名称</p>
+<p>       public void setName(String name){</p>
+<p>               this.name=name;</p>
+<p>       }</p>
+<p> </p>
+<p>       public void Display(){</p>
+<p>              System.out.println(“Dmeng’s videocard is working”);</p>
+<p>       }</p>
+<p> </p>
+<p>       public String getName(){</p>
+<p>              return name;</p>
+<p>       }</p>
+<p>}</p>
+<p> </p>
+<p>    Dmeng 厂商实现了接口之后，还需要有一块主板，我们可以再写一个文件，叫做Mainboard.java。在一个主板上，我们需要有一个CPU和一个显卡，这个CPU也可以做成一个接口，由另外一个厂商去实现这个接口，我们知道，在主板上，有很多很多的插槽，包括CPU和显卡的，在此，为了简单起见，我们直接设定CPU，方法为void setCPU(String strCPU)。主板还要设置一个显卡，void setVideoCard(VideoCard vc)，这个参数是使用VideoCard这个接口类型定义的一个变量vc ，在这儿大家要注意，我们用VideoCard这个接口变量类型定义了一个变量vc，它是作为一个形参，因为VideoCard是一个接口，所以它不能直接实例化一个对象，Java会用它的实现类，也就是显卡Dmeng这个类来产生一个对象，然后将这个对象的引用赋给变量vc，这就是应用接口的好处，对于主板厂商来说，只要遵照标准的显卡接口来完成主板的制作，至于这个显卡最终由谁来生产，并不需要关心，获取到这个标准的接口，就可以知道其实现类必定要实现接口中的方法，只需要利用定义的这个接口的变量，去调用这个方法就可以了。在此，大家不要误以为是接口直接实例化了对象。</p>
+<p>    当然，主板也应该有一个运行的方法void run()。</p>
+<p>    主板的类为</p>
+<p>class Mainboard{</p>
+<p>       String strCPU;              //CPU的名字</p>
+<p>       VideoCard vc；      //显卡</p>
+<p> </p>
+<p>       //设定CPU</p>
+<p>       void setCPU(String strCPU){</p>
+<p>              this.strCPU=strCPU;</p>
+<p>       }</p>
+<p> </p>
+<p>       //插入显卡</p>
+<p>       void setVideoCard(VideoCard vc){</p>
+<p>              this.vc=vc;</p>
+<p>       }</p>
+<p> </p>
+<p>       //主板运行，模仿开机显示必要信息</p>
+<p>       void run(){</p>
+<p>              System.out.println(strCPU);         //显示CPU</p>
+<p>              System.out.println(vc.getName());              //显示显卡的名称</p>
+<p>              vc.Display();          //显卡工作</p>
+<p>              System.out.println(“Mainboard is running”);        //主板正常工作</p>
+<p>       }</p>
+<p>}</p>
+<p> </p>
+<p>    我们作为一个用户，要使用电脑，就要把主板，显卡等都组装起来。新建Computer.java，我们需要定义一个主方法public static void main(String[] args)，首先要买显卡和主板，即实例化我们已经建立的两个类，然后组装，运行。</p>
+<p>    如下</p>
+<p>class Computer{</p>
+<p>       public static void main(String[] args){</p>
+<p>              Dmeng d=new Dmeng();      //购买显卡</p>
+<p>              Mainboard m=new Mainboard();          //购买主板</p>
+<p> </p>
+<p>              m.setCPU(“Intel’s CPU”);            //设定CPU</p>
+<p>              m.setVideoCard(d);               //插入显卡</p>
+<p>             </p>
+<p>              m.run();         //运行主板，开机</p>
+<p>       }</p>
+<p>}</p>
+<p> </p>
+<p>    一台电脑完成了，我们下面就是要编译，运行。这儿有四个文件，我们可以一个一个编译，也可以有一个简便些的方法，就是使用通配符，执行javac *.java，可以编译当前文件夹下所有后缀名为java的文件。这样还有一个好处，因为在编译的时候，有些类可以要依赖于另外一些类，所以编译时需要按照一定的顺序来编译，而在使用通配符（*）时则不用考虑这个顺序了。</p>
+<p>    编译成功后，运行Computer类，即执行java Computer。</p>
+<p>    成功执行后，结果如下</p>
+<p>Intel’s CPU</p>
+<p>Dmeng’s videocard</p>
+<p>Dmeng’s videocard is working</p>
+<p>Mainboard is running
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

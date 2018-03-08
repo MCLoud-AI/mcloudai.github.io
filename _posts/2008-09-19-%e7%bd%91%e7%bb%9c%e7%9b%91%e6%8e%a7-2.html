@@ -1,0 +1,25 @@
+---
+layout: post
+title: 网络监控
+date: 2008-09-19 23:35:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '2195253229135418673'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p><img src="{{ site.baseurl }}/assets/2317520.gif" align="top" /><span style="color:#000000;">sar </span><span style="color:#800080;">1</span><span style="color:#000000;"> </span><span style="color:#800080;">10</span><span style="color:#000000;"> </span><span style="color:#000000;">&gt;</span><span style="color:#000000;"> data.txt<br /><img src="{{ site.baseurl }}/assets/2317520.gif" align="top" /></span><span style="color:#008000;">//</span><span style="color:#008000;">每隔1秒，写入10次，把CPU使用数据保存到data.txt文件中。</span><span style="color:#008000;"><br /><img src="{{ site.baseurl }}/assets/2317520.gif" align="top" /></span><span style="color:#000000;">sar </span><span style="color:#800080;">1</span><span style="color:#000000;"> </span><span style="color:#800080;">0</span><span style="color:#000000;"> </span><span style="color:#000000;">-</span><span style="color:#000000;">e </span><span style="color:#800080;">15</span><span style="color:#000000;">:</span><span style="color:#800080;">00</span><span style="color:#000000;">:</span><span style="color:#800080;">00</span><span style="color:#000000;"> </span><span style="color:#000000;">&gt;</span><span style="color:#000000;"> data.txt<br /><img src="{{ site.baseurl }}/assets/2317520.gif" align="top" /></span><span style="color:#008000;">//</span><span style="color:#008000;">每隔1秒记录CPU的使用情况，直到15点，数据将保存到data.txt文件中。(-e 参数表示结束时间，注意时间格式：必须为hh:mm:ss格式)</span><span style="color:#008000;"><br /><img src="{{ site.baseurl }}/assets/2317520.gif" align="top" /></span><span style="color:#000000;">sar </span><span style="color:#800080;">1</span><span style="color:#000000;"> </span><span style="color:#800080;">0</span><span style="color:#000000;"> </span><span style="color:#000000;">-</span><span style="color:#000000;">r </span><span style="color:#000000;">-</span><span style="color:#000000;">e </span><span style="color:#800080;">15</span><span style="color:#000000;">:</span><span style="color:#800080;">00</span><span style="color:#000000;">:</span><span style="color:#800080;">00</span><span style="color:#000000;"> </span><span style="color:#000000;">&gt;</span><span style="color:#000000;"> data.txt<br /><img src="{{ site.baseurl }}/assets/2317520.gif" align="top" /></span><span style="color:#008000;">//</span><span style="color:#008000;">每隔1秒记录内存使用情况，直到15点，数据将保存到data.txt文件中。</span><span style="color:#008000;"><br /><img src="{{ site.baseurl }}/assets/2317520.gif" align="top" /></span><span style="color:#000000;">sar </span><span style="color:#800080;">1</span><span style="color:#000000;"> </span><span style="color:#800080;">0</span><span style="color:#000000;"> </span><span style="color:#000000;">-</span><span style="color:#000000;">n DEV </span><span style="color:#000000;">-</span><span style="color:#000000;">e </span><span style="color:#800080;">15</span><span style="color:#000000;">:</span><span style="color:#800080;">00</span><span style="color:#000000;">:</span><span style="color:#800080;">00</span><span style="color:#000000;"> </span><span style="color:#000000;">&gt;</span><span style="color:#000000;"> data.txt<br /><img src="{{ site.baseurl }}/assets/2317520.gif" align="top" /></span><span style="color:#008000;">//</span><span style="color:#008000;">每隔1秒记录网络使用情况，直到15点，数据将保存到data.txt文件中。</span>
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

@@ -1,0 +1,41 @@
+---
+layout: post
+title: JDBC连接各种数据库，很麻烦整理了一下
+date: 2009-04-21 12:44:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Programming
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '2755047217094674490'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>import java.sql.*;</p>
+<p>//import com.microsoft.sqlserver.jdbc.SQLServerConnection;<br />//import com.mysql.jdbc.Connection;<br />import oracle.jdbc.OracleDriver;</p>
+<p>public class testorcale<br />{</p>
+<p>public static void main(String[] args)<br />{<br />try<br />{<br />//加载驱动<br />Class.forName(orcaleDriver);</p>
+<p>java.util.Properties info = new java.util.Properties();<br />info.put("internal_logon", "sysdba");</p>
+<p>//建立连接<br />//    SQLServerConnection conn = (SQLServerConnection) DriverManager.getConnection(orcaleurl);<br />Connection conn = DriverManager.getConnection(orcaleurl, info);<br />//    Connection conn = DriverManager.getConnection(orcaleurl);</p>
+<p>Statement st = conn.createStatement();</p>
+<p>ResultSet rs = st.executeQuery("select * from 哈哈");</p>
+<p>while (rs.next())<br />{<br />System.out.println(rs.getString("A") + " " + rs.getString("B"));<br />}</p>
+<p>}<br />catch (Exception e)<br />{</p>
+<p>e.printStackTrace();<br />}</p>
+<p>}</p>
+<p>public static final String driverName = "org.gjt.mm.mysql.Driver";<br />public static final String urls = "jdbc:mysql://localhost/my?user=root&amp;password=880301" +<br />"&amp;useUnicode=true&amp;characterEncoding=UTF-8";</p>
+<p>public static final String driverNamesqlserver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";<br />public static final String connectionUrl = "jdbc:sqlserver://219.219.60.253:1433;" +<br />"databaseName=Graduate;user=yyl;password=yyl";</p>
+<p>public static final String orcaleDriver = "oracle.jdbc.driver.OracleDriver";<br />public static final String orcaleurl = "jdbc:oracle:thin:mydream/880301@127.0.0.1:1522:test";</p>
+<p>}</p>
+<p>顺便说一下 ·orcale还是牛逼了把sun收购了， 一个做数据库的，可以吧一个做语言，做系统，做硬件的公司收购了，值得我们反思
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

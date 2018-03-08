@@ -1,0 +1,35 @@
+---
+layout: post
+title: 每次打开Word、Excel，均弹出Office安装配置进度向导解决办法(转帖)
+date: 2010-04-06 23:13:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+tags: []
+meta:
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '6995634542678156982'
+  blogger_blog: everydaydreamy.blogspot.com
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>一个很莫名的Office Enterprise 2007 在Windows Server 2008 Enterprise 版本下的安装Bug。</p>
+<p>即便在安装时，选择安装所有功能组件，在每次打开Word、Excel时，都弹出“安装配置向导”这个进度对话框，微软的这个bug，简直可以让人崩溃。经过一番周折，终于找到完美解决方案。</p>
+<p><span style="font-size:medium;"><span><strong><span style="color:#ff0000;"><span style="font-size:small;">解决方法：</span></span></strong></span></span></p>
+<p>1. 通过重装Office以后解决此问题（太麻烦..不推荐）</p>
+<p>2. 注册（<span style="color:#ff0000;">注意两个版本的Office运行代码不同</span>）</p>
+<p>如若是Office 2003的对应问题，在运行对话框中输入：<br /><strong><span style="color:#339966;">reg add HKCUSoftwareMicrosoftOffice11.0WordOptions /v NoReReg /t REG_DWORD /d 1</span></strong><span style="color:#339966;"><br /></span>回车即可</p>
+<p>若是Office 2007的对应问题，在运行对话框中输入：<br /><strong><span style="color:#339966;">reg add HKCUSoftwareMicrosoftOffice12.0WordOptions /v NoReReg /t REG_DWORD /d 1<br /></span></strong>回车即可</p>
+<p>3. 改文件（操作也很简单方便）</p>
+<p>打开“我的电脑”——“C盘”——“Program FilesCommon FilesMicrosoft SharedOFFICE12Office Setup Controller”——找到一个“SETUP.EXE”的文件，对此文件重命名即可</p>
+<p>4. 改注册表
+<div class="t_msgfont">开始-》运行-》输入regedit-》打开注册列表，找到HKEY_LOCAL_MACHINESOFTWAREClasses，右键—》权限—》高级，选第二个选项CREATOR OWNER ,点编辑，在完全控制，允许那边打钩、确定。这时可能防火墙会跳出警告，你点放过，重启，OK~解决问题！</div>
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

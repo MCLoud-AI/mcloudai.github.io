@@ -1,0 +1,89 @@
+---
+layout: post
+title: squid + ldap (freebsd)
+date: 2011-11-18 03:32:40.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Unix/Linux
+tags:
+- bsd
+- ldap
+- squid
+meta: {}
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>Today, my friend want to use my university search service, but he has not availble ip . so i may use the proxy server to help him..</p>
+<p>Based on my experiments about squid and nis ....</p>
+<p>I use the ldap to manager the accounts and squid as proxy server.</p>
+<p>1. ldap</p>
+<p>1.1 install from ports</p>
+<p>because of the configuration, so use the ports not pkg</p>
+<p>cd /usr/ports/net/openldap24-server</p>
+<p>make install clean  (option <span style="color:#ff0000;">without dynamic backends)</span></p>
+<p>1.2 edit /usr/local/etc/openldap/slapd.conf</p>
+<p>allow bind v2</p>
+<p>suffix "dc=mydreamy,dc=cn"<br />
+rootdn "cn=admin,dc=mydreamy,dc=cn"<br />
+rootpw {SSHA}pNitdSj2BT+v3GTNW6RSibw0nQix81VP  (it geneated by ldappasswd after ldap server start)</p>
+<p>1.3 check</p>
+<p>/usr/local/sbin/ldaptest  you may find some problem  (if the database problem, you can use -u option to fix it)</p>
+<p>1.4 edit rc.conf and start</p>
+<p>slapd_enable="YES"</p>
+<p>/user/local/etc/rc.d/sldap start</p>
+<p>1.5 check start</p>
+<p>sockstat -4   (389 port)</p>
+<p>1.6 add basic information</p>
+<p>use ldapadd or .ldif file import to databases  (at least import basic domain imformation otherwise you can not connent to ldap)</p>
+<p># mydreamy.cn<br />
+dn: dc=mydreamy,dc=cn<br />
+objectClass: dcObject<br />
+objectClass: organization<br />
+dc: mydreamy<br />
+o: mydreamy<br />
+userPassword:: e1NIQX13bCtZU1RsTStLVFVLWXRzZS94WG1TamhkeEE9</p>
+<p># Users, mydreamy.cn<br />
+dn: ou=Users,dc=mydreamy,dc=cn<br />
+objectClass: organizationalUnit<br />
+objectClass: top<br />
+ou: Users</p>
+<p># yangyilong, Users, mydreamy.cn<br />
+dn: cn=yangyilong,ou=Users,dc=mydreamy,dc=cn<br />
+objectClass: person<br />
+objectClass: top<br />
+sn: yilong<br />
+cn: yangyilong<br />
+userPassword:: ZzZqOXotMQ==</p>
+<p># luwei, Users, mydreamy.cn<br />
+dn: cn=luwei,ou=Users,dc=mydreamy,dc=cn<br />
+cn: luwei<br />
+objectClass: person<br />
+objectClass: top<br />
+sn: luwei<br />
+userPassword:: bHV3ZWkwMDc=  (sample crypt)</p>
+<p># lab627, Users, mydreamy.cn<br />
+dn: cn=lab627,ou=Users,dc=mydreamy,dc=cn<br />
+cn: lab627<br />
+objectClass: person<br />
+objectClass: top<br />
+sn: lab627<br />
+userPassword:: eWFuZ2ppbmc2Mjc=</p>
+<p>2. squild</p>
+<p>2.1 install by ports (include squid_ldap_auth option configured by "make config" command)</p>
+<p>2.2 edit squid.conf</p>
+<p>auth_param basic program /usr/local/libexec/squid/squid_ldap_auth -b "ou=Users,dc=mydreamy,dc=cn" -f cn=%s -h localhost<br />
+acl authuser proxy_auth REQUIRED<br />
+http_access allow authuser</p>
+<p>add above item before deny all</p>
+<p>2.3 edit rc.conf and start squid</p>
+<p>finally, you can use the squid by entering the username and password provide by ldap</p>
+<p>3. jexplorer</p>
+<p>you can use this open source tools to manager your ldap in visualable way.....</p>

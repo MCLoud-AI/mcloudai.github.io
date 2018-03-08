@@ -1,0 +1,38 @@
+---
+layout: post
+title: linux inode新感想
+date: 2009-02-02 23:44:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- System
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '2451109482749609082'
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>今天再整理linux资料的时候发现inode的概念很生疏,所以下了个操作系统教程看一下。下面是感受</p>
+<p>文件系统</p>
+<p>逻辑： 流式或记录式</p>
+<p>数据项-&gt;逻辑记录-&gt;逻辑文件 (不一定连续)</p>
+<p>文件目录项FCB.保存文件的全部信息，存贮在目录下。</p>
+<p>linux将FCB分为两部分，14字节的文件名和2字节的inode号，这个作为FCB</p>
+<p>剩下部分作为inode结构，存贮在inode分区中, inode结构记录了文件的所有信息</p>
+<p>找文件的时候，首先根据文件名，找到<em>inode号, </em>在内存中找inode,如果没有就创建，有就找个inode重对应逻辑地址，然后再找到物理地址，进行访问</p>
+<p>就是这样</p>
+<p>物理：分为1.连续 2.链式 3.索引(现在系统都是这样)</p>
+<p>块：物理记录 最小单位4个1024字节 4K(连续)</p>
+<p>文件    逻辑记录   逻辑</p>
+<p>卷       块             物理</p>
+<p>成组分解: 多个逻辑记录合成一组写入一个块 ，反之为分组
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/" alt="" /></div>

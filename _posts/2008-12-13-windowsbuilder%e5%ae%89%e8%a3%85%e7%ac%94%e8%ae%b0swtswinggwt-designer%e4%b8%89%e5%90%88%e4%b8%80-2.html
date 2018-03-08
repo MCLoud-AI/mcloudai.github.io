@@ -1,0 +1,43 @@
+---
+layout: post
+title: windowsbuilder安装笔记(swt,swing,gwt-designer三合一)
+date: 2008-12-13 14:02:00.000000000 +08:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Programming
+tags: []
+meta:
+  blogger_blog: everydaydreamy.blogspot.com
+  blogger_author: yangyilong
+  blogger_5db691c6560366c0233000029746f2a2_permalink: '3680412041035081033'
+  _oembed_ab2fdf5e66c78e0cf10d2171b7d6f3e8: "{{unknown}}"
+  _oembed_bc564d7329dcfbb7aa9dd8dd51d9a391: "{{unknown}}"
+author:
+  login: mcloud
+  email: ''
+  display_name: mcloud
+  first_name: ''
+  last_name: ''
+---
+<p>我想用java的人都很苦恼图形化设计，这本来应该是java的强项，应该好好的发挥一下，但是苦于网上的swt-designer教程不是特别的全,要么就是破解有问题</p>
+<p>所以这里我把我的安装过程分享出来，这样从此图形不是问题</p>
+<p> 进入正题：安装过程分为两个步骤:</p>
+<p>1. windowsbuilder的安装</p>
+<p>2. windowsbuilder破解 (这东西IBM做的肯定要钱的)</p>
+<p>第一步: 1. 下载你eclipse对应版本的windowsbuilder最好是绿色版的  <a href="http://www.instantiations.com/">http://www.instantiations.com/</a>  (这东西不停的发展，所以我只给一个网址)</p>
+<p>2.  解压得到 feature和plugins两个文件， 把他们放在你eclipse目录mypluginsswtdesigner下 上面几个文件夹自己建</p>
+<p>3.  建立link文件: 在你eclipse目录links下 建立swtdesigner.link文件 </p>
+<p>内容为:path=你的swtdesigner文件夹的路径  （注意要把改为/)</p>
+<p> 4.打开eclipse 在windows-&gt;preferences里看到有eclipse选项就安装成功</p>
+<p>第二步： 破解</p>
+<p>1.运行附件里的 keygeno.jar 在name里填入swtdesinger, 你本机的mac地址(用ipconfig /all看),</p>
+<p>2. 点genrate, 在当前目录下生成 Instantiations.license文件</p>
+<p>3.把这个文件拷贝到: 系统盘Documents and Settings当前用户名 下 一切就和谐了</p>
+<p>4. 在打开eclipse 在windows-&gt;preferences-&gt;swtdesigner-&gt;license 下看到时间有很多天，就破解成功 </p>
+<p>    </p>
+<p>附件: <a href="http://internet.yo2.cn/articles/windowsbuilder%e5%ae%89%e8%a3%85%e7%ac%94%e8%ae%b0swtswinggwt-designer%e4%b8%89%e5%90%88%e4%b8%80.html/66956/" title="keygeno1.rar" rel="attachment wp-att-66956">keygeno1.rar</a>
+<div class="blogger-post-footer"><img width="1" height="1" src="{{ site.baseurl }}/assets/1125273420938643422-3680412041035081033?l=everydaydreamy.blogspot.com" alt="" /></div>
